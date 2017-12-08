@@ -334,6 +334,237 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             count6=0;
 
         }
+        else if(count1!=0 &count2!=0&count3==0&count4!=0&count5==0&count6==0){
+            System.out.println("D");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3==0&count4!=0&count5==0&count6==0){
+            System.out.println("E");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
+            System.out.println("F");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
+            System.out.println("G");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
+            System.out.println("H");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
+            System.out.println("I");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
+            System.out.println("J");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
+            System.out.println("K");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
+            System.out.println("L");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
+            System.out.println("M");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6==0){
+            System.out.println("N");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6==0){
+            System.out.println("O");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
+            System.out.println("P");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
+            System.out.println("Q");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
+            System.out.println("R");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
+            System.out.println("S");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
+            System.out.println("T");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
+            System.out.println("U");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
+            System.out.println("V");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6!=0){
+            System.out.println("W");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6!=0){
+            System.out.println("X");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
+            System.out.println("Y");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6!=0){
+            System.out.println("Z");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+
 
     }
 }
