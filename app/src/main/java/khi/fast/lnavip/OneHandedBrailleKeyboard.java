@@ -899,6 +899,10 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         if(name.equals("")){
             speak2("You haven't typed any thing yet");
         }
+        else if(name.equals(" ")){
+            speak2("You just typed the space, Kindly type your name" );
+
+        }
         else {
             speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
             Intent i = new Intent(OneHandedBrailleKeyboard.this,ConfirmationActivity.class);
