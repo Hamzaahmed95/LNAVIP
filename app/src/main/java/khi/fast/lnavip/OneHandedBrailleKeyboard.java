@@ -1,11 +1,18 @@
 package khi.fast.lnavip;
 
+import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Hamza Ahmed on 08-Dec-17.
@@ -32,12 +39,14 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     int count14=0;
     int count15=0;
     int count16=0;
+    TextToSpeech t1;
     private GestureDetector gd;
     private GestureDetector gd1;
     private GestureDetector gd2;
     private GestureDetector gd3;
     private GestureDetector gd4;
     private GestureDetector gd5;
+    private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +58,60 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout4=(LinearLayout)findViewById(R.id.layout4);
         layout5=(LinearLayout)findViewById(R.id.layout5);
         layout6=(LinearLayout)findViewById(R.id.layout6);
+        t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.US);
+                    t1.setPitch(.4205f);
+                }
+            }
+        });
+        class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+
+
+
+
         class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
@@ -196,6 +259,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         gd3 = new GestureDetector(this, new MyGestureDetector4());
         gd4 = new GestureDetector(this, new MyGestureDetector5());
         gd5 = new GestureDetector(this, new MyGestureDetector6());
+        gestureDetector = new GestureDetector(this, new GestureListener());
 
 
 
@@ -215,6 +279,12 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
 
                 gd.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                    layout1.setBackgroundDrawable( getResources().getDrawable(R.drawable.shape2) );
+                else
+                    layout1.setBackgroundColor(Color.parseColor("#000000"));
+
                 return false;
             }
         });
@@ -233,6 +303,13 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 gd1.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                    layout2.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                else
+
+                    layout2.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 return false;
             }
         });
@@ -249,6 +326,12 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 gd2.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                    layout3.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                else
+                    layout3.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 return false;
             }
         });
@@ -265,6 +348,12 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 gd3.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                layout4.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                else
+                    layout4.setBackgroundColor(Color.parseColor("#000000"));
+
                 return false;
             }
         });
@@ -281,6 +370,11 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 gd4.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                    layout5.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                else
+                    layout5.setBackgroundColor(Color.parseColor("#000000"));
                 return false;
             }
         });
@@ -297,6 +391,12 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 gd5.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                if(motionEvent.getAction()==0)
+                    layout6.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                else
+                    layout6.setBackgroundColor(Color.parseColor("#ffffff"));
+
                 return false;
             }
         });
@@ -306,6 +406,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     public void BrailleLanguage(int count1,int count2,int count3,int count4,int count5,int count6){
         if(count1!=0 &count2==0&count3==0&count4==0&count5==0&count6==0){
             System.out.println("A");
+            speak1("A");
             count1=0;
             count2=0;
             count3=0;
@@ -315,7 +416,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5==0&count6==0){
-            System.out.println("C");
+            speak1("C");
             count1=0;
             count2=0;
             count3=0;
@@ -325,7 +426,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
-            System.out.println("B");
+            speak1("B");
             count1=0;
             count2=0;
             count3=0;
@@ -335,7 +436,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5==0&count6==0){
-            System.out.println("D");
+            speak1("D");
             count1=0;
             count2=0;
             count3=0;
@@ -345,7 +446,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5==0&count6==0){
-            System.out.println("E");
+            speak1("E");
             count1=0;
             count2=0;
             count3=0;
@@ -355,7 +456,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            System.out.println("F");
+            speak1("F");
             count1=0;
             count2=0;
             count3=0;
@@ -365,7 +466,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            System.out.println("G");
+            speak1("G");
             count1=0;
             count2=0;
             count3=0;
@@ -375,7 +476,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
-            System.out.println("H");
+            speak1("H");
             count1=0;
             count2=0;
             count3=0;
@@ -385,7 +486,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            System.out.println("I");
+            speak1("I");
             count1=0;
             count2=0;
             count3=0;
@@ -395,7 +496,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            System.out.println("J");
+            speak1("J");
             count1=0;
             count2=0;
             count3=0;
@@ -405,7 +506,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
-            System.out.println("K");
+            speak1("K");
             count1=0;
             count2=0;
             count3=0;
@@ -415,7 +516,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
-            System.out.println("L");
+            speak1("L");
             count1=0;
             count2=0;
             count3=0;
@@ -425,7 +526,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
-            System.out.println("M");
+            speak1("M");
             count1=0;
             count2=0;
             count3=0;
@@ -435,7 +536,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6==0){
-            System.out.println("N");
+            speak1("N");
             count1=0;
             count2=0;
             count3=0;
@@ -445,7 +546,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6==0){
-            System.out.println("O");
+            speak1("O");
             count1=0;
             count2=0;
             count3=0;
@@ -455,7 +556,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            System.out.println("P");
+            speak1("P");
             count1=0;
             count2=0;
             count3=0;
@@ -465,7 +566,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            System.out.println("Q");
+            speak1("Q");
             count1=0;
             count2=0;
             count3=0;
@@ -475,7 +576,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
-            System.out.println("R");
+            speak1("R");
             count1=0;
             count2=0;
             count3=0;
@@ -485,7 +586,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            System.out.println("S");
+            speak1("S");
             count1=0;
             count2=0;
             count3=0;
@@ -495,7 +596,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            System.out.println("T");
+            speak1("T");
             count1=0;
             count2=0;
             count3=0;
@@ -505,7 +606,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
-            System.out.println("U");
+            speak1("U");
             count1=0;
             count2=0;
             count3=0;
@@ -515,7 +616,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
-            System.out.println("V");
+            speak1("V");
             count1=0;
             count2=0;
             count3=0;
@@ -525,7 +626,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6!=0){
-            System.out.println("W");
+            speak1("W");
             count1=0;
             count2=0;
             count3=0;
@@ -535,7 +636,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6!=0){
-            System.out.println("X");
+            speak1("X");
             count1=0;
             count2=0;
             count3=0;
@@ -545,7 +646,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
-            System.out.println("Y");
+            speak1("Y");
             count1=0;
             count2=0;
             count3=0;
@@ -555,7 +656,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6!=0){
-            System.out.println("Z");
+            speak1("Z");
             count1=0;
             count2=0;
             count3=0;
@@ -564,7 +665,138 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             count6=0;
 
         }
+        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
+            speak1("'");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
 
+        }
+        else if(count1==0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
+            speak1("/");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
 
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
+            System.out.println(":");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
+            System.out.println(",");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3==0&count4==0&count5==0&count6!=0){
+            System.out.println(".");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6!=0){
+            System.out.println("$");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
+            System.out.println("!");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
+            System.out.println("-");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
+            System.out.println("#");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
+            System.out.println("?");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
+            System.out.println(";");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+    }
+    private void speak1(String word){
+        if(word != null) {
+            HashMap<String, String> myHashAlarm = new HashMap<String, String>();
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
+            t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+            //String destFileName = "/sdcard/myAppCache/wakeUp.wav";
+            //  t1.synthesizeToFile(word, myHashAlarm, destFileName);
+
+        }
+    }
+    public void onSwipeTop() {
+        Toast.makeText(OneHandedBrailleKeyboard.this, "top", Toast.LENGTH_SHORT).show();
+    }
+    public void onSwipeRight() {
+        Toast.makeText(OneHandedBrailleKeyboard.this, "right", Toast.LENGTH_SHORT).show();
+    }
+    public void onSwipeLeft() {
+        Toast.makeText(OneHandedBrailleKeyboard.this, "left", Toast.LENGTH_SHORT).show();
+    }
+    public void onSwipeBottom() {
+        Toast.makeText(OneHandedBrailleKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
     }
 }

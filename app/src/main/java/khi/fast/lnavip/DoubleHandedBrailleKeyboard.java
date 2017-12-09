@@ -845,5 +845,115 @@ public class DoubleHandedBrailleKeyboard extends AppCompatActivity {
         }
 
 
+        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
+            System.out.println("'");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
+            System.out.println("/");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
+            System.out.println(":");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
+            System.out.println(",");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3==0&count4==0&count5==0&count6!=0){
+            System.out.println(".");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6!=0){
+            System.out.println("$");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
+            System.out.println("!");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
+            System.out.println("-");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
+            System.out.println("#");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
+            System.out.println("?");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
+        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
+            System.out.println(";");
+            count1=0;
+            count2=0;
+            count3=0;
+            count4=0;
+            count5=0;
+            count6=0;
+
+        }
     }
 }
