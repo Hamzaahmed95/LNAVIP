@@ -16,11 +16,10 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Created by Hamza Ahmed on 08-Dec-17.
+ * Created by Hamza Ahmed on 09-Dec-17.
  */
 
-public class OneHandedBrailleKeyboard  extends AppCompatActivity {
-
+public class NumberKeyboard extends AppCompatActivity {
     LinearLayout layout1;
     LinearLayout layout2;
     LinearLayout layout3;
@@ -116,7 +115,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-               // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
@@ -267,11 +266,11 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //   System.out.println("A");
+                //   System.out.println("A");
 
 
 
-            //    System.out.println("count-> "+count11);
+                //    System.out.println("count-> "+count11);
             }
         });
         layout1.setOnTouchListener(new View.OnTouchListener() {
@@ -294,7 +293,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //    System.out.println("A");
+                //    System.out.println("A");
 
 
             }
@@ -351,7 +350,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
                 gd3.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
-                layout4.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
+                    layout4.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
                 else
                     layout4.setBackgroundColor(Color.parseColor("#000000"));
 
@@ -403,11 +402,33 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         });
 
 
-      }
-    public void BrailleLanguage(int count1,int count2,int count3,int count4,int count5,int count6){
-        if(count1!=0 &count2==0&count3==0&count4==0&count5==0&count6==0){
-            System.out.println("A");
-            speak1("A");
+    }
+    public void BrailleLanguage(int count1,int count2,int count3,int count4,int count5,int count6) {
+        if (count1 == 0 & count2 != 0 & count3 == 0 & count4 != 0 & count5 != 0 & count6 != 0) {
+            System.out.println("#");
+            speak1("Hash");
+            count1 = 0;
+            count2 = 0;
+            count3 = 0;
+            count4 = 0;
+            count5 = 0;
+            count6 = 0;
+
+        }
+        else if (count1 == 0 & count2 != 0 & count3 != 0 & count4 != 0 & count5 == 0 & count6 == 0) {
+            System.out.println("0");
+            speak1("Zero");
+            count1 = 0;
+            count2 = 0;
+            count3 = 0;
+            count4 = 0;
+            count5 = 0;
+            count6 = 0;
+        }
+
+        else if(count1!=0 &count2==0&count3==0&count4==0&count5==0&count6==0){
+            System.out.println("1");
+            speak1("One");
             count1=0;
             count2=0;
             count3=0;
@@ -417,7 +438,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5==0&count6==0){
-            speak1("C");
+            speak1("Two");
             count1=0;
             count2=0;
             count3=0;
@@ -427,7 +448,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("B");
+            speak1("Three");
             count1=0;
             count2=0;
             count3=0;
@@ -437,7 +458,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5==0&count6==0){
-            speak1("D");
+            speak1("Four");
             count1=0;
             count2=0;
             count3=0;
@@ -447,7 +468,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5==0&count6==0){
-            speak1("E");
+            speak1("Five");
             count1=0;
             count2=0;
             count3=0;
@@ -457,7 +478,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("F");
+            speak1("Six");
             count1=0;
             count2=0;
             count3=0;
@@ -467,7 +488,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("G");
+            speak1("seven");
             count1=0;
             count2=0;
             count3=0;
@@ -477,7 +498,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("H");
+            speak1("eight");
             count1=0;
             count2=0;
             count3=0;
@@ -487,295 +508,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("I");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("J");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("K");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("L");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("M");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6==0){
-            speak1("N");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6==0){
-            speak1("O");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("P");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("Q");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("R");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("S");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("T");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
-            speak1("U");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
-            speak1("V");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6!=0){
-            speak1("W");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6!=0){
-            speak1("X");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
-            speak1("Y");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6!=0){
-            speak1("Z");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("apostrophe"); // '
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("bar"); // /
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
-            System.out.println(":");
-            speak1("colon");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
-            System.out.println(",");
-            speak1("comma");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3==0&count4==0&count5==0&count6!=0){
-            System.out.println(".");
-            speak1("dot");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4!=0&count5==0&count6!=0){
-            System.out.println("$");
-            speak1("dollar sign");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
-            System.out.println("!");
-            speak1("exclamation point");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
-            System.out.println("-");
-            speak1("hyphen");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
-            System.out.println("#");
-            speak1("Number sign");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
-            System.out.println("?");
-            count1=0;
-            count2=0;
-            count3=0;
-            count4=0;
-            count5=0;
-            count6=0;
-
-        }
-        else if(count1==0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
-            System.out.println(";");
-            speak1("semicolon");
+            speak1("nine");
             count1=0;
             count2=0;
             count3=0;
@@ -785,7 +518,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else{
-            speak1("try again");
+            speak1("try again!");
         }
     }
     private void speak1(String word){
@@ -800,7 +533,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         }
     }
     public void onSwipeTop() {
-        Toast.makeText(OneHandedBrailleKeyboard.this, "top", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NumberKeyboard.this, "top", Toast.LENGTH_SHORT).show();
         speak1("Clear");
         count1=0;
         count2=0;
@@ -810,16 +543,16 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         count6=0;
     }
     public void onSwipeRight() {
-        Toast.makeText(OneHandedBrailleKeyboard.this, "right", Toast.LENGTH_SHORT).show();
-        speak1("Number Keyboard Now");
-        Intent i =new Intent(OneHandedBrailleKeyboard.this,NumberKeyboard.class);
+        speak1("Braille Keyboard Now");
+      //  Toast.makeText(NumberKeyboard.this, "right", Toast.LENGTH_SHORT).show();
+        Intent i =new Intent(NumberKeyboard.this,OneHandedBrailleKeyboard.class);
         startActivity(i);
     }
     public void onSwipeLeft() {
-        Toast.makeText(OneHandedBrailleKeyboard.this, "left", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NumberKeyboard.this, "left", Toast.LENGTH_SHORT).show();
     }
     public void onSwipeBottom() {
-        Toast.makeText(OneHandedBrailleKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
+        Toast.makeText(NumberKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
         speak1("space");
     }
-}
+    }
