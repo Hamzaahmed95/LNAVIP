@@ -27,6 +27,7 @@ public class NumberKeyboard extends AppCompatActivity {
     LinearLayout layout5;
     LinearLayout layout6;
 
+
     int count1=0;
     int count2=0;
     int count3=0;

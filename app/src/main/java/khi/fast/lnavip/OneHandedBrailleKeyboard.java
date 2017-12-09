@@ -27,7 +27,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     LinearLayout layout4;
     LinearLayout layout5;
     LinearLayout layout6;
-
+    LinearLayout MainLayout;
     int count1=0;
     int count2=0;
     int count3=0;
@@ -40,6 +40,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     int count14=0;
     int count15=0;
     int count16=0;
+    String name="";
     TextToSpeech t1;
     private GestureDetector gd;
     private GestureDetector gd1;
@@ -59,6 +60,73 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout4=(LinearLayout)findViewById(R.id.layout4);
         layout5=(LinearLayout)findViewById(R.id.layout5);
         layout6=(LinearLayout)findViewById(R.id.layout6);
+        MainLayout=(LinearLayout)findViewById(R.id.MainLayout);
+
+        layout1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
+
+        layout2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
+
+        layout3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
+
+        layout4.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
+
+        layout5.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
+
+        layout6.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                name=method(name);
+                System.out.println("deleted word: "+name);
+                speak2("Last word Clear");
+                return false;
+            }
+        });
         t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -785,23 +853,33 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
 
         }
         else{
-            speak1("try again");
+            speak2("try again");
         }
     }
     private void speak1(String word){
         if(word != null) {
+            if(!word.equals("Clear") && !word.equals("space")) {
+                name = name + word;
+            }
+            System.out.println("NAME: "+ name);
             HashMap<String, String> myHashAlarm = new HashMap<String, String>();
             myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
             myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
             t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
-            //String destFileName = "/sdcard/myAppCache/wakeUp.wav";
-            //  t1.synthesizeToFile(word, myHashAlarm, destFileName);
-
         }
+    }
+    private void speak2(String word){
+
+            HashMap<String, String> myHashAlarm = new HashMap<String, String>();
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
+            t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+
     }
     public void onSwipeTop() {
         Toast.makeText(OneHandedBrailleKeyboard.this, "top", Toast.LENGTH_SHORT).show();
         speak1("Clear");
+        name="";
         count1=0;
         count2=0;
         count3=0;
@@ -817,9 +895,18 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     }
     public void onSwipeLeft() {
         Toast.makeText(OneHandedBrailleKeyboard.this, "left", Toast.LENGTH_SHORT).show();
+        speak1("You typed "+name);
+        name="";
     }
     public void onSwipeBottom() {
         Toast.makeText(OneHandedBrailleKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
+        name=name+" ";
         speak1("space");
+    }
+    public String method(String str) {
+        if (str != null && str.length() > 0 ) {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
     }
 }
