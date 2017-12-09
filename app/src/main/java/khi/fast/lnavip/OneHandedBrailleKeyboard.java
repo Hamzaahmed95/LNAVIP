@@ -41,6 +41,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     int count15=0;
     int count16=0;
     String name="";
+    String FinalName="";
     TextToSpeech t1;
     private GestureDetector gd;
     private GestureDetector gd1;
@@ -132,7 +133,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
                     t1.setLanguage(Locale.US);
-                    t1.setPitch(.4205f);
+                    t1.setPitch(.0205f);
                 }
             }
         });
@@ -895,8 +896,15 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     }
     public void onSwipeLeft() {
         Toast.makeText(OneHandedBrailleKeyboard.this, "left", Toast.LENGTH_SHORT).show();
-        speak1("You typed "+name);
-        name="";
+        if(name.equals("")){
+            speak2("You haven't typed any thing yet");
+        }
+        else {
+            speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
+            Intent i = new Intent(OneHandedBrailleKeyboard.this,ConfirmationActivity.class);
+            startActivity(i);
+        }
+        //name="";
     }
     public void onSwipeBottom() {
         Toast.makeText(OneHandedBrailleKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
