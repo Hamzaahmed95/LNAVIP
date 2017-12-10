@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -30,7 +31,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     LinearLayout layout4;
     LinearLayout layout5;
     LinearLayout layout6;
-
+    String name1;
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,11 @@ public class ConfirmationActivity extends AppCompatActivity {
         layout4=(LinearLayout)findViewById(R.id.layout4);
         layout5=(LinearLayout)findViewById(R.id.layout5);
         layout6=(LinearLayout)findViewById(R.id.layout6);
+        Bundle extra=this.getIntent().getExtras();
+        if(extra!=null){
+            name1=extra.getString("ActivityName");
+
+        }
 
         class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
@@ -221,7 +227,20 @@ public class ConfirmationActivity extends AppCompatActivity {
     }
     public void onSwipeLeft() {
         Toast.makeText(ConfirmationActivity.this, "left", Toast.LENGTH_SHORT).show();
-        speak2("Okay!! Enter Your age!");
+
+        if(name1.equals("OneHandedBrailleKeyboard")){
+            System.out.println("braile");
+            speak2("Okay!! Enter Your age!");
+            Intent i = new Intent(ConfirmationActivity.this,NumberKeyboard.class);
+            startActivity(i);
+        }
+        else{
+            System.out.println("number");
+            speak2("Okay!! Set Your password now!");
+            Intent i = new Intent(ConfirmationActivity.this,PasswordClass.class);
+            startActivity(i);
+        }
+
         //name="";
     }
     private void speak2(String word){
