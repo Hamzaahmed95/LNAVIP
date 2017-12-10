@@ -3,6 +3,7 @@ package khi.fast.lnavip;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -43,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
-                    speak3("Hello There! In order to access the app, here are the instructions that you need to follow! Press One tab anywhere in the screen");
+                    final MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.audio1);
+                //    speak3("Hello There! In order to access the app, here are the instructions that you need to follow! Press One tab anywhere in the screen");
                     System.out.println("count1= " + count1);
+                    mp.start();
 
 
                 }
