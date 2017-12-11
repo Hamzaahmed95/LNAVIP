@@ -55,6 +55,8 @@ public class PasswordClass extends AppCompatActivity {
     private GestureDetector gd4;
     private GestureDetector gd5;
     private GestureDetector gestureDetector;
+    private String Name;
+    private String Age;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +144,21 @@ public class PasswordClass extends AppCompatActivity {
                 }
             }
         });
+
+        Bundle extra=this.getIntent().getExtras();
+        if(extra!=null){
+            Name=extra.getString("Name");
+            Age=extra.getString("Age");
+        }
+
+
+
+
+
+
+
+
+
         class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
             private static final int SWIPE_THRESHOLD = 100;
@@ -895,8 +912,11 @@ public class PasswordClass extends AppCompatActivity {
     }
     public void onSwipeRight() {
         Toast.makeText(PasswordClass.this, "right", Toast.LENGTH_SHORT).show();
-        speak1("Number Keyboard Now");
+        speak2("Number Keyboard Now");
         Intent i =new Intent(PasswordClass.this,NumberKeyboard.class);
+        i.putExtra("Name",Name);
+        i.putExtra("Age",Age);
+        i.putExtra("Password",name);
         startActivity(i);
     }
     public void onSwipeLeft() {

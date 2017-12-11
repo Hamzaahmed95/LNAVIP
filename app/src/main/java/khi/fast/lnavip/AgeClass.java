@@ -20,7 +20,7 @@ import java.util.Locale;
  * Created by Hamza Ahmed on 09-Dec-17.
  */
 
-public class NumberKeyboard extends AppCompatActivity {
+public class AgeClass extends AppCompatActivity {
     LinearLayout layout1;
     LinearLayout layout2;
     LinearLayout layout3;
@@ -51,8 +51,6 @@ public class NumberKeyboard extends AppCompatActivity {
     private GestureDetector gd5;
     private GestureDetector gestureDetector;
     private String username;
-    private String password;
-    private String age;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +74,7 @@ public class NumberKeyboard extends AppCompatActivity {
         Bundle extra=this.getIntent().getExtras();
         if(extra!=null){
             username=extra.getString("Name");
-            age=extra.getString("Age");
-            password=extra.getString("Password");
-            name=password;
+
         }
 
 
@@ -627,7 +623,7 @@ public class NumberKeyboard extends AppCompatActivity {
         }
     }
     public void onSwipeTop() {
-        Toast.makeText(NumberKeyboard.this, "top", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AgeClass.this, "top", Toast.LENGTH_SHORT).show();
         speak1("Clear");
         name="";
         textView.setText(name);
@@ -640,15 +636,12 @@ public class NumberKeyboard extends AppCompatActivity {
     }
     public void onSwipeRight() {
         speak1("Braille Keyboard Now");
-      //  Toast.makeText(NumberKeyboard.this, "right", Toast.LENGTH_SHORT).show();
-        Intent i =new Intent(NumberKeyboard.this,PasswordClass.class);
-        i.putExtra("Name",username);
-        i.putExtra("Age",age);
-        i.putExtra("Password",name);
+        //  Toast.makeText(AgeClass.this, "right", Toast.LENGTH_SHORT).show();
+        Intent i =new Intent(AgeClass.this,OneHandedBrailleKeyboard.class);
         startActivity(i);
     }
     public void onSwipeLeft() {
-        Toast.makeText(NumberKeyboard.this, "left", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AgeClass.this, "left", Toast.LENGTH_SHORT).show();
         if(name.equals("")){
             speak2("You haven't typed any thing yet");
         }
@@ -657,18 +650,18 @@ public class NumberKeyboard extends AppCompatActivity {
 
         }
         else {
-            Intent i = new Intent(NumberKeyboard.this,ConfirmationActivity.class);
-            i.putExtra("ActivityName","NumberKeyboard");
+            Intent i = new Intent(AgeClass.this,ConfirmationActivity.class);
+            i.putExtra("ActivityName","AgeClass");
             i.putExtra("Name1",username);
-            i.putExtra("Age",age);
-            i.putExtra("Password",name);
+            i.putExtra("Age",name);
             startActivity(i);
-            speak1("You set your Password " + name + "! To continue, swipe left, or to change it, swipe right.");
-         }
+
+            speak1("You set your age " + name + "! To continue, swipe left, or to change it, swipe right.");
+        }
         //name="";
     }
     public void onSwipeBottom() {
-        Toast.makeText(NumberKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AgeClass.this, "bottom", Toast.LENGTH_SHORT).show();
         speak1("space");
     }
     public String method(String str) {
@@ -678,4 +671,4 @@ public class NumberKeyboard extends AppCompatActivity {
         textView.setText(str);
         return str;
     }
-    }
+}

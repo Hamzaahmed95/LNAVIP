@@ -32,6 +32,10 @@ public class ConfirmationActivity extends AppCompatActivity {
     LinearLayout layout5;
     LinearLayout layout6;
     String name1;
+    String username;
+    String Username1;
+    String Age1;
+    String password;
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         Bundle extra=this.getIntent().getExtras();
         if(extra!=null){
             name1=extra.getString("ActivityName");
+            username=extra.getString("Name");
 
         }
 
@@ -231,14 +236,35 @@ public class ConfirmationActivity extends AppCompatActivity {
         if(name1.equals("OneHandedBrailleKeyboard")){
             System.out.println("braile");
             speak2("Okay!! Enter Your age!");
-            Intent i = new Intent(ConfirmationActivity.this,NumberKeyboard.class);
+            Intent i = new Intent(ConfirmationActivity.this,AgeClass.class);
+            i.putExtra("Name",username);
+            startActivity(i);
+        }
+        else if(name1.equals("AgeClass")){
+            Bundle extra=this.getIntent().getExtras();
+            if(extra!=null){
+                Username1=extra.getString("Name1");
+                Age1=extra.getString("Age");
+
+            }
+            System.out.println("number");
+            speak2("you set your name as "+Username1+"!! and Age as "+Age1+"!! Set Your password now!");
+         //   speak2("Okay!! Set Your password now!");
+            Intent i = new Intent(ConfirmationActivity.this,PasswordClass.class);
+            i.putExtra("Name",Username1);
+            i.putExtra("Age",Age1);
             startActivity(i);
         }
         else{
-            System.out.println("number");
-            speak2("Okay!! Set Your password now!");
-            Intent i = new Intent(ConfirmationActivity.this,PasswordClass.class);
+            Bundle extra=this.getIntent().getExtras();
+            if(extra!=null){
+                Username1=extra.getString("Name1");
+                Age1=extra.getString("Age");
+                password=extra.getString("Password");
+            }
+            Intent i = new Intent(ConfirmationActivity.this,NewsActivity.class);
             startActivity(i);
+
         }
 
         //name="";
