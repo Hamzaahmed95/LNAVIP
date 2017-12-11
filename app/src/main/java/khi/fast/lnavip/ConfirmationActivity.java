@@ -227,8 +227,16 @@ public class ConfirmationActivity extends AppCompatActivity {
     }
     public void onSwipeRight() {
         Intent i =new Intent(ConfirmationActivity.this,OneHandedBrailleKeyboard.class);
+        if(name1.equals("OneHandedBrailleKeyboard"))
         speak2("Kindly Change the name.");
+        else if(name1.equals("AgeClass"))
+            speak2("Kindly Change the age");
+        else
+            speak2("Kindly Change the password");
+
         startActivity(i);
+
+
     }
     public void onSwipeLeft() {
         Toast.makeText(ConfirmationActivity.this, "left", Toast.LENGTH_SHORT).show();

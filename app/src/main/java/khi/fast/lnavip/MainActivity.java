@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
 
                 System.out.println("Double");
-                speak("Braille Keyboard selected! Enter your Name:");
+                speak("Normal Keyboard selected! Enter your Name:");
                 Intent i = new Intent(MainActivity.this,NormalKeyBoard.class);
                 startActivity(i);
                 return true;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onSingleTapConfirmed(MotionEvent e){
                 Intent i = new Intent(MainActivity.this,OneHandedBrailleKeyboard.class);
                 startActivity(i);
-                speak("Normal Keyboard selected! Enter your Name:");
+                speak("Braille Keyboard selected! Enter your Name:");
                 System.out.println("Single");
                 return true;
             }

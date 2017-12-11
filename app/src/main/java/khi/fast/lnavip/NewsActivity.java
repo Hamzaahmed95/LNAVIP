@@ -1,17 +1,15 @@
 package khi.fast.lnavip;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 
 /**
- * Created by Hamza Ahmed on 11-Dec-17.
+ * Created by Hamza Ahmed on 18-Aug-17.
  */
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends SingleFragmentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_activity);
+    protected Fragment createFragment(){
+        return NewsFragment.newInstance() ;
     }
 }

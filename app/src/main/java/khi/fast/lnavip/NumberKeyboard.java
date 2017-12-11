@@ -79,6 +79,7 @@ public class NumberKeyboard extends AppCompatActivity {
             age=extra.getString("Age");
             password=extra.getString("Password");
             name=password;
+            System.out.println(username+" "+age+" "+password+" "+name);
         }
 
 
@@ -639,9 +640,10 @@ public class NumberKeyboard extends AppCompatActivity {
         count6=0;
     }
     public void onSwipeRight() {
-        speak1("Braille Keyboard Now");
+       // speak1("Braille Keyboard Now");
       //  Toast.makeText(NumberKeyboard.this, "right", Toast.LENGTH_SHORT).show();
         Intent i =new Intent(NumberKeyboard.this,PasswordClass.class);
+        speak2("Braille Keyboard Now");
         i.putExtra("Name",username);
         i.putExtra("Age",age);
         i.putExtra("Password",name);
@@ -663,7 +665,7 @@ public class NumberKeyboard extends AppCompatActivity {
             i.putExtra("Age",age);
             i.putExtra("Password",name);
             startActivity(i);
-            speak1("You set your Password " + name + "! To continue, swipe left, or to change it, swipe right.");
+            speak1("Username: "+username+"!"+" Age: "+age+"! and Password: " + name + "! To continue, swipe left, or to change it, swipe right.");
          }
         //name="";
     }

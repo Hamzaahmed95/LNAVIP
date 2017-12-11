@@ -149,6 +149,12 @@ public class PasswordClass extends AppCompatActivity {
         if(extra!=null){
             Name=extra.getString("Name");
             Age=extra.getString("Age");
+            FinalName=extra.getString("Password");
+            if(FinalName!=null){
+                name=FinalName;
+                System.out.println(Name+" "+Age+" "+FinalName+" "+name);
+
+            }
         }
 
 
@@ -914,6 +920,7 @@ public class PasswordClass extends AppCompatActivity {
         Toast.makeText(PasswordClass.this, "right", Toast.LENGTH_SHORT).show();
         speak2("Number Keyboard Now");
         Intent i =new Intent(PasswordClass.this,NumberKeyboard.class);
+        System.out.println("NUll->"+name);
         i.putExtra("Name",Name);
         i.putExtra("Age",Age);
         i.putExtra("Password",name);
@@ -931,6 +938,13 @@ public class PasswordClass extends AppCompatActivity {
         else {
             speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
             Intent i = new Intent(PasswordClass.this,ConfirmationActivity.class);
+            i.putExtra("ActivityName","PasswordClass");
+            i.putExtra("Name1",Name);
+            i.putExtra("Age",Age);
+            i.putExtra("Password",name);
+            startActivity(i);
+            speak1("Username: "+Name+"!"+" Age: "+Age+"! and Password: " + name + "! To continue, swipe left, or to change it, swipe right.");
+
             startActivity(i);
         }
         //name="";
