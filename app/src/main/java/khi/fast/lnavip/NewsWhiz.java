@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,22 +34,14 @@ import java.util.Map;
  * Created by Hamza Ahmed on 18-Aug-17.
  */
 
-public class NewsFragment extends Fragment {
-    private Button b1;
+public class NewsWhiz extends Fragment {
     private RecyclerView mNewsRecyclerView;
     private static final String TAG ="NewsFragment";
     private List<NewsItem> mItems = new ArrayList<>();
-    private Button b2;
-    private String s1;
-    private int count=0;
     TextToSpeech t1;
-    private LinearLayout Assistant;
-    private LinearLayout NewsAssistant;
-    public static String s2;
-    private GestureDetector gestureDetector;
 
-    public static NewsFragment newInstance(){
-        return new NewsFragment();
+    public static NewsWhiz newInstance(){
+        return new NewsWhiz();
     }
 
     @Override
@@ -58,7 +51,7 @@ public class NewsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        s1="null";
+
         new FetchItemsTask().execute();
         t1=new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override
@@ -82,40 +75,17 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle s){
 
         Log.i(TAG,"in onCreateView() ");
-        View view = inflater.inflate(R.layout.fragment_news,container,false);
-        Assistant=(LinearLayout)view.findViewById(R.id.Assistant);
-        Assistant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speak1("Hey It's me! Double tap to open me up! or single tab to back again!");
-                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
-                i.putExtra("ID","Assistant");
-                startActivity(i);
-            }
-        });
-        NewsAssistant=(LinearLayout)view.findViewById(R.id.NewsAssistant);
-        NewsAssistant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                speak1("Hey I am your library! Double tap to open me up! or single tab to back again!");
-                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
-                i.putExtra("ID","NewsAssistant");
-                startActivity(i);
-            }
-        });
+        View view = inflater.inflate(R.layout.news_whiz,container,false);
+
         mNewsRecyclerView=(RecyclerView) view.findViewById(R.id.fragment_news_recycle_view);
-        mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mNewsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         setupAdapter();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-               speak1("Hello Hamza!  Right now, Your screen has divided into 3!" +
-                       " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
-                       "(Its your library, where you can find your saved News! or you can explore the News! or Change settings etc etc)! and Theres a big square box at the center of the screen (Thats where you find the news)! " +
-                       "To know what your screen look like! just tab anywhere in the screen and I'll tell you where you tapped!! and if " +
-                       "you want me to repeat again for you, then long tapped on the screen! Now Waiting for your action.");
+                speak1("");
 
             }
         }, 1000);
