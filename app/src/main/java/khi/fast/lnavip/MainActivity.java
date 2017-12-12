@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
                     t1.setLanguage(Locale.US);
-                    t1.setPitch(0.905f);
+                    t1.setPitch(0.005f);
                 }
             }
         });

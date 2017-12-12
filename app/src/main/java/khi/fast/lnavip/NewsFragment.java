@@ -1,7 +1,10 @@
 package khi.fast.lnavip;
 
+import android.content.Intent;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +38,9 @@ public class NewsFragment extends Fragment {
     private Button b2;
     private String s1;
     private int count=0;
+    TextToSpeech t1;
+    private LinearLayout Assistant;
+    private LinearLayout NewsAssistant;
     public static String s2;
     public static NewsFragment newInstance(){
         return new NewsFragment();
@@ -49,46 +55,80 @@ public class NewsFragment extends Fragment {
         setRetainInstance(true);
         s1="null";
         new FetchItemsTask().execute();
+        t1=new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.US);
+                    t1.setSpeechRate(1f);
+                    t1.setPitch(0.905f);
+                }
+            }
+        });
+
+
+
 
     }
 
 
 
-    TextToSpeech t1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle s){
 
         Log.i(TAG,"in onCreateView() ");
         View view = inflater.inflate(R.layout.fragment_news,container,false);
-        b1 = (Button)view.findViewById(R.id.button);
-        b2 = (Button)view.findViewById(R.id.button2);
+        Assistant=(LinearLayout)view.findViewById(R.id.Assistant);
+        Assistant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speak1("Hey It's me! Double tap to open me up! or single tab to back again!");
+            }
+        });
+        NewsAssistant=(LinearLayout)view.findViewById(R.id.NewsAssistant);
+        NewsAssistant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speak1("Hey Im your library!, Double tap to open me up! or single tab to back again!");
+            }
+        });
         mNewsRecyclerView=(RecyclerView) view.findViewById(R.id.fragment_news_recycle_view);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setupAdapter();
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+               speak1("Hello Hamza!  Right now, Your screen has divided into 3!" +
+                       " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
+                       "(Its your library, where you can find your saved News! or you can explore the News! or Change settings etc etc)! and Theres a big square box at the center of the screen (Thats where you find the news)! " +
+                       "To know what your screen look like! just tab anywhere in the screen and I'll tell you where you tapped!! and if " +
+                       "you want me to repeat again for you, then long tapped on the screen! Now Waiting for your action.");
+
+            }
+        }, 1000);
+
 
         return view;
     }
+    private void speak1(String word){
+
+        HashMap<String, String> myHashAlarm = new HashMap<String, String>();
+        myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
+        myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
+        t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+
+    }
+
+
+
     private void setupAdapter(){
         if(isAdded()) {
             mNewsRecyclerView.setAdapter(new NewsAdapter(mItems));
         }
-        System.out.println("s2-> "+s2);
-
-
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              //  t1.speak(s2, TextToSpeech.QUEUE_FLUSH, null);
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mNewsRecyclerView.smoothScrollToPosition(count++);
-            }
-        });
     }
+
     private class NewsHolder extends RecyclerView.ViewHolder {
         private TextView Author;
         private LinearLayout l1;
@@ -97,6 +137,8 @@ public class NewsFragment extends Fragment {
         private TextView Description;
         private ImageView URL;
         private TextView publishedAt;
+
+        private LinearLayout fragment_weather_recycle_view;
 
         public NewsHolder(View itemView) {
             super(itemView);
@@ -108,17 +150,23 @@ public class NewsFragment extends Fragment {
             Description = (TextView) itemView.findViewById(R.id.Desc);
             publishedAt = (TextView) itemView.findViewById(R.id.pub);
             URL = (ImageView)itemView.findViewById(R.id.image1);
+            fragment_weather_recycle_view=(LinearLayout)itemView.findViewById(R.id.fragment_weather_recycle_view);
+
         }
 
         public void bindGalleryItem(NewsItem item) {
+            fragment_weather_recycle_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
+                }
+            });
             Author.setText(item.getAuthor());
             l2.setVisibility(View.GONE);
-         //   System.out.println("here2->"+item.getAuthor());
             Title.setText(item.getTitle());
             l1.setVisibility(View.GONE);
             Description.setText(item.getDescription());
             boolean isPhoto = item.getmUrl() != null;
-       //     System.out.print("hamza: " +item.getmUrl());
             if (isPhoto) {
                 Glide.with(URL.getContext())
                         .load(item.getmUrl())
@@ -169,36 +217,9 @@ public class NewsFragment extends Fragment {
         protected void onPostExecute(List<NewsItem> items){
             mItems = items;
             setupAdapter();
-         //   String score = s2;
-           // String[] arr = score.split("-");
-            //Map<String, String> details = new HashMap<>();
-            //for(int i=0;i<arr.length;i++){
-             //   details.put("person" + i, arr[i]);
-            //}
-            //System.out.println(details.entrySet());
-            /*if(!s2.equals(null)) {
 
-                String news1 = arr[0];
-                String news2 = arr[1];
-                String news3 = arr[2];
-                String news4 = arr[3];
-                String news5 = arr[4];
-                String news6 = arr[5];
-                String news7 = arr[6];
-                String news8 = arr[7];
-                String news9 = arr[8];
-                System.out.println(news1);
-                System.out.println(news2);
-                System.out.println(news3);
-                System.out.println(news4);
-                System.out.println(news5);
-                System.out.println(news6);
-                System.out.println(news7);
-                System.out.println(news8);
-                System.out.println(news9);
-            }*/
         }
     }
 
-
 }
+

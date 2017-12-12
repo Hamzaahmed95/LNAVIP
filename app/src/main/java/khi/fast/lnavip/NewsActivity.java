@@ -12,4 +12,5 @@ public class NewsActivity extends SingleFragmentActivity {
     protected Fragment createFragment(){
         return NewsFragment.newInstance() ;
     }
+
 }
