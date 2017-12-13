@@ -162,7 +162,7 @@ public class NewsFragment extends Fragment {
             Description = (TextView) itemView.findViewById(R.id.Desc);
             publishedAt = (TextView) itemView.findViewById(R.id.pub);
             URL = (ImageView)itemView.findViewById(R.id.image1);
-            fragment_weather_recycle_view=(LinearLayout)itemView.findViewById(R.id.fragment_weather_recycle_view);
+            fragment_weather_recycle_view=(LinearLayout)itemView.findViewById(R.id.fragment_news_recycle_view);
 
         }
 

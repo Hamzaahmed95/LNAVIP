@@ -1,17 +1,26 @@
 package khi.fast.lnavip;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -58,8 +67,8 @@ public class NewsWhiz extends Fragment {
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
                     t1.setLanguage(Locale.US);
-                    t1.setSpeechRate(1f);
-                    t1.setPitch(0.905f);
+                    t1.setSpeechRate(0.85f);
+                    t1.setPitch(0.505f);
                 }
             }
         });
@@ -79,6 +88,8 @@ public class NewsWhiz extends Fragment {
 
         mNewsRecyclerView=(RecyclerView) view.findViewById(R.id.fragment_news_recycle_view);
         mNewsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mNewsRecyclerView);
         setupAdapter();
 
         Handler handler = new Handler();
@@ -94,6 +105,15 @@ public class NewsWhiz extends Fragment {
 
         return view;
     }
+
+
+
+
+
+
+
+
+
     private void speak1(String word){
 
         HashMap<String, String> myHashAlarm = new HashMap<String, String>();
@@ -111,7 +131,7 @@ public class NewsWhiz extends Fragment {
         }
     }
 
-    private class NewsHolder extends RecyclerView.ViewHolder {
+    private class NewsHolder extends RecyclerView.ViewHolder{
         private TextView Author;
         private LinearLayout l1;
         private LinearLayout l2;
@@ -119,8 +139,7 @@ public class NewsWhiz extends Fragment {
         private TextView Description;
         private ImageView URL;
         private TextView publishedAt;
-
-        private LinearLayout fragment_weather_recycle_view;
+        private LinearLayout fragment_news_recycle_view;
 
         public NewsHolder(View itemView) {
             super(itemView);
@@ -132,20 +151,29 @@ public class NewsWhiz extends Fragment {
             Description = (TextView) itemView.findViewById(R.id.Desc);
             publishedAt = (TextView) itemView.findViewById(R.id.pub);
             URL = (ImageView)itemView.findViewById(R.id.image1);
-            fragment_weather_recycle_view=(LinearLayout)itemView.findViewById(R.id.fragment_weather_recycle_view);
+
+
+
+            fragment_news_recycle_view=(LinearLayout)itemView.findViewById(R.id.fragment_news_recycle_view);
 
         }
 
-        public void bindGalleryItem(NewsItem item) {
-            fragment_weather_recycle_view.setOnClickListener(new View.OnClickListener() {
+
+        public void bindGalleryItem(final NewsItem item,final int pos) {
+            fragment_news_recycle_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
+                  /*  speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
-                    startActivity(i);
+                    startActivity(i);*/
+                    System.out.println("hamza->"+pos);
+                    System.out.println("TITLE: "+item.getTitle());
+                    speak1(item.getTitle());
                 }
             });
+
+            System.out.println("TITLE"+item.getTitle());
             Author.setText(item.getAuthor());
             l2.setVisibility(View.GONE);
             Title.setText(item.getTitle());
@@ -157,14 +185,13 @@ public class NewsWhiz extends Fragment {
                         .load(item.getmUrl())
                         .into(URL);
             }
-            publishedAt.setText(item.getPublishedAt());
-
             System.out.println("voice2: "+item.getVoice());
         }
-    }
-    private class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
-        private List<NewsItem> mGalleryItems;
 
+
+    }
+    private class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
+        private List<NewsItem> mGalleryItems;
         public NewsAdapter(List<NewsItem> galleryItems){
             mGalleryItems = galleryItems;
         }
@@ -173,17 +200,22 @@ public class NewsWhiz extends Fragment {
         public NewsHolder onCreateViewHolder(ViewGroup view ,int viewType){
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View v = inflater.inflate(R.layout.list_news,view,false);
+            System.out.println("onCreateView()");
             return new NewsHolder(v);
         }
+
 
         @Override
         public void onBindViewHolder(NewsHolder photoHolder, int pos){
             NewsItem galleryItem = mGalleryItems.get(pos);
-            photoHolder.bindGalleryItem(galleryItem);
+            System.out.println("position: "+galleryItem.getTitle());
+            photoHolder.bindGalleryItem(galleryItem,pos);
         }
 
         @Override
         public int getItemCount(){
+            System.out.println("size: "+mGalleryItems.size());
+            System.out.println("getItemCount");
             return mGalleryItems.size();
         }
     }
