@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onSingleTapConfirmed(MotionEvent e){
                 Intent i = new Intent(MainActivity.this,OneHandedBrailleKeyboard.class);
                 startActivity(i);
-                speak("Braille Keyboard selected! Enter your Name:");
+                speak("Braille Keyboard selected! Before using Braille! I would recommend you to check the guidance, by swapping down the screen! so that you can easily use it! if you don't want to, then Enter your Name:");
                 System.out.println("Single");
                 return true;
             }
