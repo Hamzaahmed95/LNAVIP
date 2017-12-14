@@ -238,6 +238,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
 
     }
+
     public void onSwipeLeft() {
         Toast.makeText(ConfirmationActivity.this, "left", Toast.LENGTH_SHORT).show();
 
@@ -271,6 +272,12 @@ public class ConfirmationActivity extends AppCompatActivity {
                 password=extra.getString("Password");
             }
             Intent i = new Intent(ConfirmationActivity.this,NewsActivity.class);
+            speak2("Hello Hamza!  Right now, Your screen has divided into 3!" +
+                    " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
+                    "(Its your library, where you can find your saved News! or you can explore the News! or Change settings etc etc)! and Theres a big square box at the center of the screen (Thats where you find the news)! " +
+                    "To know what your screen look like! just tab anywhere in the screen and I'll tell you where you tapped!! and if " +
+                    "you want me to repeat again for you, then long tapped on the screen! Now Waiting for your action.");
+
             startActivity(i);
 
         }

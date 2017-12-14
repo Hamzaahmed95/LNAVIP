@@ -48,7 +48,11 @@ public class NewsWhiz extends Fragment {
     private static final String TAG ="NewsFragment";
     private List<NewsItem> mItems = new ArrayList<>();
     TextToSpeech t1;
-
+    TextToSpeech t2;
+    private GestureDetector gestureDetector;
+    private String newsHeadlines="";
+    private String newsDetails="";
+    private GestureDetector gd;
     public static NewsWhiz newInstance(){
         return new NewsWhiz();
     }
@@ -72,6 +76,16 @@ public class NewsWhiz extends Fragment {
                 }
             }
         });
+        t2=new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t2.setLanguage(Locale.US);
+                    t2.setSpeechRate(1f);
+                    t2.setPitch(0.505f);
+                }
+            }
+        });
 
 
 
@@ -85,6 +99,65 @@ public class NewsWhiz extends Fragment {
 
         Log.i(TAG,"in onCreateView() ");
         View view = inflater.inflate(R.layout.news_whiz,container,false);
+        class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                               // onSwipeRight();
+                            } else {
+                             //   onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                              onSwipeBottom();
+                        } else {
+                            //onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+        class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+                System.out.println("Double");
+                speak1(newsDetails);
+                return true;
+            }
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e){
+                t1.stop();
+                speak1(newsHeadlines);
+
+                return true;
+            }
+        }
+        gestureDetector = new GestureDetector(getContext(), new GestureListener());
+
+        gd = new GestureDetector(getContext(), new MyGestureDetector());
 
         mNewsRecyclerView=(RecyclerView) view.findViewById(R.id.fragment_news_recycle_view);
         mNewsRecyclerView.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -96,10 +169,15 @@ public class NewsWhiz extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak1("");
+
+
+
+
+                speak2("Domestic News on the Screen now! Just single tap on the screen to play the news!" +
+                        "If you want more help? swipe down the screen!. Now waiting for your action! ");
 
             }
-        }, 1000);
+        }, 1500);
 
 
 
@@ -120,6 +198,14 @@ public class NewsWhiz extends Fragment {
         myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
         myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
         t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
+
+    }
+    private void speak2(String word){
+
+        HashMap<String, String> myHashAlarm = new HashMap<String, String>();
+        myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
+        myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
+        t2.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 
     }
 
@@ -167,9 +253,29 @@ public class NewsWhiz extends Fragment {
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
                     startActivity(i);*/
+
                     System.out.println("hamza->"+pos);
                     System.out.println("TITLE: "+item.getTitle());
-                    speak1(item.getTitle());
+                }
+            });
+            fragment_news_recycle_view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    gestureDetector.onTouchEvent(motionEvent);
+
+                    newsHeadlines=item.getTitle();
+                    newsDetails=item.getDescription();
+                    gd.onTouchEvent(motionEvent);
+                    return false;
+                }
+            });
+            fragment_news_recycle_view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                   Intent i = new Intent(getActivity(),NewsActivity.class);
+                    startActivity(i);
+                    return false;
                 }
             });
 
@@ -190,6 +296,13 @@ public class NewsWhiz extends Fragment {
 
 
     }
+
+    public void onSwipeBottom(){
+        Intent i = new Intent(getActivity(),NewsHelpActivity.class);
+        startActivity(i);
+
+    }
+
     private class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
         private List<NewsItem> mGalleryItems;
         public NewsAdapter(List<NewsItem> galleryItems){

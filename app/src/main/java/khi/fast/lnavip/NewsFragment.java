@@ -111,11 +111,7 @@ public class NewsFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-               speak1("Hello Hamza!  Right now, Your screen has divided into 3!" +
-                       " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
-                       "(Its your library, where you can find your saved News! or you can explore the News! or Change settings etc etc)! and Theres a big square box at the center of the screen (Thats where you find the news)! " +
-                       "To know what your screen look like! just tab anywhere in the screen and I'll tell you where you tapped!! and if " +
-                       "you want me to repeat again for you, then long tapped on the screen! Now Waiting for your action.");
+               speak1("GoodMorning Hamza I hope you have a good day :)");
 
             }
         }, 1000);
@@ -170,7 +166,6 @@ public class NewsFragment extends Fragment {
             fragment_weather_recycle_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
                     startActivity(i);
