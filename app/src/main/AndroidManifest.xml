@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SplashScreen">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -140,7 +139,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".PhoneActivity">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_SEND" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
 

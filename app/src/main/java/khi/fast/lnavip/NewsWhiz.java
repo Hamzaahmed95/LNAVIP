@@ -275,7 +275,8 @@ public class NewsWhiz extends Fragment {
                 @Override
                 public boolean onLongClick(View view) {
 
-                   Intent i = new Intent(getActivity(),NewsActivity.class);
+                   Intent i = new Intent(getActivity(),PhoneActivity.class);
+                    i.putExtra("NEWS",item.getTitle());
                     startActivity(i);
                     return false;
                 }
