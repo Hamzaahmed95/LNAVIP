@@ -46,13 +46,6 @@ public class Confirmation2Activity extends AppCompatActivity {
             }
         });
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
-
-            }
-        }, 1000);
         if(extra!=null){
             activity=extra.getString("ID");
             System.out.println("in onCreate()"+activity);
@@ -68,6 +61,8 @@ public class Confirmation2Activity extends AppCompatActivity {
                 }
                 else if(activity.equals("NewsAssistant")){
                     System.out.println("NewsAssistant");
+                    Intent i = new Intent(Confirmation2Activity.this,LibraryActivity.class);
+                    startActivity(i);
                 }
                 else{
                     System.out.println("News");

@@ -168,6 +168,11 @@ public class NewsFragment extends Fragment {
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
+
+                            speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
+
+
+
                     startActivity(i);
                 }
             });

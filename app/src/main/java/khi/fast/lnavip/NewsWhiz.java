@@ -53,6 +53,7 @@ public class NewsWhiz extends Fragment {
     private String newsHeadlines="";
     private String newsDetails="";
     private GestureDetector gd;
+    public static String saveNews="";
     public static NewsWhiz newInstance(){
         return new NewsWhiz();
     }
@@ -144,13 +145,14 @@ public class NewsWhiz extends Fragment {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
-                speak1(newsDetails);
+                speak1("News Detail is: "+newsDetails);
                 return true;
             }
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e){
                 t1.stop();
-                speak1(newsHeadlines);
+                t2.stop();
+                speak1("Alright! News Title is: "+newsHeadlines+"! Double tap for the detail now!");
 
                 return true;
             }
@@ -298,6 +300,8 @@ public class NewsWhiz extends Fragment {
     }
 
     public void onSwipeBottom(){
+        t1.stop();
+        t2.stop();
         Intent i = new Intent(getActivity(),NewsHelpActivity.class);
         startActivity(i);
 
