@@ -349,31 +349,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,MainActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
 
 
                 gd.onTouchEvent(motionEvent);
@@ -399,33 +374,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,GuidelinesActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
-
-
 
                 gd1.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
@@ -449,33 +397,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout3.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,GuidelinesActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
-
-
 
                 gd2.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
@@ -498,33 +419,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout4.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,GuidelinesActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
-
-
 
                 gd3.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
@@ -547,32 +441,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout5.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,GuidelinesActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
-
 
                 gd4.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
@@ -594,32 +462,6 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout6.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = (motionEvent.getAction() & MotionEvent.ACTION_MASK);
-                switch (action) {
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        mPtrCount++;
-
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        mPtrCount--;
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        mPtrCount++;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        mPtrCount--;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (mPtrCount==2){
-                            Intent i = new Intent(OneHandedBrailleKeyboard.this,GuidelinesActivity.class);
-                            startActivity(i);
-                        }
-                        System.out.println("Move "+mPtrCount);
-                        break;
-
-                }
-
 
                 gd5.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
@@ -1081,7 +923,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         //name="";
     }
     public void onSwipeBottom() {
-        Intent i =new Intent(OneHandedBrailleKeyboard.this,LearningBrailleActivity.class);
+        Intent i =new Intent(OneHandedBrailleKeyboard.this,MainGuidanceActivity.class);
         startActivity(i);
     }
         public String method(String str) {
