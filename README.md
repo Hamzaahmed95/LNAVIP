@@ -1,4 +1,4 @@
-# NewsWiz (location based News for visually Impared People)
+# NewsWiz (Location Based News for Visually Impaired People)
 News Wizard is a location based news application for **Visually Impared People.** The app mainly focuses on the interaction of **Blind People**. The Braille Keyboard has been implemented for the ease of blind users for interaction. It is very much similar to Google Newsstand App, but it is specifically designed for Blind People or I should say it's a *Google Newsstand for Blind People.*
 
 ## Features:
