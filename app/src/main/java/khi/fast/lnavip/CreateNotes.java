@@ -10,21 +10,17 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Created by Hamza Ahmed on 09-Dec-17.
+ * Created by Hamza Ahmed on 11-Mar-18.
  */
 
-public class PasswordClass extends AppCompatActivity {
-
+public class CreateNotes extends AppCompatActivity {
     LinearLayout layout1;
     LinearLayout layout2;
     LinearLayout layout3;
@@ -32,6 +28,7 @@ public class PasswordClass extends AppCompatActivity {
     LinearLayout layout5;
     LinearLayout layout6;
     LinearLayout MainLayout;
+    TextView textView;
     int count1=0;
     int count2=0;
     int count3=0;
@@ -44,12 +41,8 @@ public class PasswordClass extends AppCompatActivity {
     int count14=0;
     int count15=0;
     int count16=0;
-
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mMessageDatabaseReference;
-
+    int mPtrCount=0;
     String name="";
-    String FinalName="";
     TextToSpeech t1;
     private GestureDetector gd;
     private GestureDetector gd1;
@@ -58,13 +51,11 @@ public class PasswordClass extends AppCompatActivity {
     private GestureDetector gd4;
     private GestureDetector gd5;
     private GestureDetector gestureDetector;
-    private String Name;
-    private String Age;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.one_handed_braille_keyboard);
-
+        textView=(TextView)findViewById(R.id.Name);
         layout1=(LinearLayout)findViewById(R.id.layout1);
         layout2=(LinearLayout)findViewById(R.id.layout2);
         layout3=(LinearLayout)findViewById(R.id.layout3);
@@ -78,6 +69,7 @@ public class PasswordClass extends AppCompatActivity {
             public boolean onLongClick(View view) {
 
                 name=method(name);
+                textView.setText(name);
                 System.out.println("deleted word: "+name);
                 speak2("Last word Clear");
                 return false;
@@ -147,27 +139,6 @@ public class PasswordClass extends AppCompatActivity {
                 }
             }
         });
-
-        Bundle extra=this.getIntent().getExtras();
-        if(extra!=null){
-            Name=extra.getString("Name");
-            Age=extra.getString("Age");
-            FinalName=extra.getString("Password");
-            if(FinalName!=null){
-                name=FinalName;
-                System.out.println(Name+" "+Age+" "+FinalName+" "+name);
-
-            }
-        }
-
-
-
-
-
-
-
-
-
         class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
             private static final int SWIPE_THRESHOLD = 100;
@@ -892,6 +863,7 @@ public class PasswordClass extends AppCompatActivity {
         if(word != null) {
             if(!word.equals("Clear") && !word.equals("space")) {
                 name = name + word;
+                textView.setText(name);
             }
             System.out.println("NAME: "+ name);
             HashMap<String, String> myHashAlarm = new HashMap<String, String>();
@@ -909,28 +881,28 @@ public class PasswordClass extends AppCompatActivity {
 
     }
     public void onSwipeTop() {
-        Toast.makeText(PasswordClass.this, "top", Toast.LENGTH_SHORT).show();
+   //     Toast.makeText(OneHandedBrailleKeyboard.this, "top", Toast.LENGTH_SHORT).show();
         speak1("Clear");
         name="";
+        textView.setText(name);
         count1=0;
         count2=0;
         count3=0;
         count4=0;
         count5=0;
         count6=0;
+
     }
     public void onSwipeRight() {
-        Toast.makeText(PasswordClass.this, "right", Toast.LENGTH_SHORT).show();
-        speak2("Number Keyboard Now");
-        Intent i =new Intent(PasswordClass.this,NumberKeyboard.class);
-        System.out.println("NUll->"+name);
-        i.putExtra("Name",Name);
-        i.putExtra("Age",Age);
-        i.putExtra("Password",name);
-        startActivity(i);
+
+//        Toast.makeText(OneHandedBrailleKeyboard.this, "bottom", Toast.LENGTH_SHORT).show();
+        name=name+" ";
+        textView.setText(name);
+        speak1("space");
+
     }
     public void onSwipeLeft() {
-        Toast.makeText(PasswordClass.this, "left", Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(OneHandedBrailleKeyboard.this, "left", Toast.LENGTH_SHORT).show();
         if(name.equals("")){
             speak2("You haven't typed any thing yet");
         }
@@ -939,29 +911,27 @@ public class PasswordClass extends AppCompatActivity {
 
         }
         else {
-            speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
-            Intent i = new Intent(PasswordClass.this,ConfirmationActivity.class);
-            i.putExtra("ActivityName","PasswordClass");
-            i.putExtra("Name1",Name);
-            i.putExtra("Age",Age);
-            i.putExtra("Password",name);
+            Intent i = new Intent(OneHandedBrailleKeyboard.this,ConfirmationActivity.class);
+            i.putExtra("ActivityName","OneHandedBrailleKeyboard");
+            System.out.println("name:-> "+name+"<-:name");
+            i.putExtra("Name",name);
             startActivity(i);
-            speak1("Username: "+Name+"!"+" Age: "+Age+"! and Password: " + name + "! To continue, swipe left, or to change it, swipe right.");
 
-            startActivity(i);
-        }
+            System.out.println("here now? "+name);
+            speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
+        }*/
         //name="";
     }
     public void onSwipeBottom() {
-        Toast.makeText(PasswordClass.this, "bottom", Toast.LENGTH_SHORT).show();
-        name=name+" ";
-        speak1("space");
+      //  Intent i =new Intent(OneHandedBrailleKeyboard.this,MainGuidanceActivity.class);
+       // startActivity(i);
     }
     public String method(String str) {
         if (str != null && str.length() > 0 ) {
             str = str.substring(0, str.length() - 1);
         }
+        textView.setText(str);
         return str;
     }
-
 }
+

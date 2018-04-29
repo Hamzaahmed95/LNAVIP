@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak("Hello And Welcome to the Newz Whiz! You Need To first Sign in, and for that! How would you Interact with the app? single tap for Braille keyboard! and double tap for normal keyboard?");
+                speak("Hello And Welcome to the Newz Whiz! You Need to first Sign in, " +
+                        "and for that! How would you Interact with the app?" +
+                        " single tap for Braille keyboard! and double tap for normal keyboard?");
 
             }
         }, 1000);

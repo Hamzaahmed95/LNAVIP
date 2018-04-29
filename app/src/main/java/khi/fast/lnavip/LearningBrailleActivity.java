@@ -151,7 +151,7 @@ public class LearningBrailleActivity extends AppCompatActivity {
                     if (check == 1) {
                         speak2("Great!! Now Press 2");
                         check++;
-                        v.vibrate(500);
+                        v.vibrate(1000);
                     } else
                         speak2("Oops! Try again!");
                 }

@@ -50,7 +50,7 @@ public class NewsHelpActivity extends AppCompatActivity {
             public void run() {
                 speak2("Okay Hamza!! if you want to play or stop the news?" +
                         " Just single tap on the screen! wanna move to next news? swipe left on the screen! wanna save the news? double tap on the screen!" +
-                        " If you wanna go back to home screen? Long tab on the screen!. Now swipe up the screen to go back! or Double tap to repeat me again!");
+                        " If you wanna share the news to via cell no? Long tab on the screen!. Now swipe up the screen to go back! or Double tap to repeat me again!");
 
 
             }

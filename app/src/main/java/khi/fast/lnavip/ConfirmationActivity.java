@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Locale;
@@ -25,6 +32,9 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     TextToSpeech t1;
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessageDatabaseReference;
+    private ChildEventListener mChildEventListener;
     LinearLayout layout1;
     LinearLayout layout2;
     LinearLayout layout3;
@@ -50,6 +60,9 @@ public class ConfirmationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("UserProfile");
         layout1=(LinearLayout)findViewById(R.id.layout1);
         layout2=(LinearLayout)findViewById(R.id.layout2);
         layout3=(LinearLayout)findViewById(R.id.layout3);
@@ -271,6 +284,10 @@ public class ConfirmationActivity extends AppCompatActivity {
                 Age1=extra.getString("Age");
                 password=extra.getString("Password");
             }
+            SignUpClass signUpClass = new SignUpClass(Username1,password,Integer.parseInt(Age1));
+            mMessageDatabaseReference.push().setValue(signUpClass);
+            System.out.println("check123 "+Username1+" "+ Age1+ " "+password);
+            attachDatabaseReadListener();
             Intent i = new Intent(ConfirmationActivity.this,NewsActivity.class);
             speak2("Hello Hamza!  Right now, Your screen has divided into 3!" +
                     " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
@@ -292,6 +309,67 @@ public class ConfirmationActivity extends AppCompatActivity {
         t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 
     }
+    private void attachDatabaseReadListener(){
+        if(mChildEventListener==null) {
+            mChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    //  textHide.setVisibility(View.GONE);
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            mMessageDatabaseReference.addChildEventListener(mChildEventListener);
+            mMessageDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+
+                        //  Log.d("mom ",""+mom.getPICTURE());
+
+                    }
+
+
+
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+    private void detachDatabaseReadListener(){
+        if(mChildEventListener!=null)
+            mMessageDatabaseReference.removeEventListener(mChildEventListener);
+        mChildEventListener=null;
+    }
+
 
 
 }

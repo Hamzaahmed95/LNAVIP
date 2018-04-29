@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "553195688697",
+    "firebase_url": "https://newswhiz-ec9b8.firebaseio.com",
+    "project_id": "newswhiz-ec9b8",
+    "storage_bucket": "newswhiz-ec9b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553195688697:android:3c625d1e1cd3176d",
+        "android_client_info": {
+          "package_name": "khi.fast.lnavip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553195688697-1msvldcm4p9r3hiqt98one5e7mvt41dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "khi.fast.lnavip",
+            "certificate_hash": "40aee8a8219d068b371883230b70c568974ed205"
+          }
+        },
+        {
+          "client_id": "553195688697-tsdl3156s9sv6rt349a1luqhokgu5f58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN1RB1Mrren2IAP4ubTLPKYLi-1eREQbg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553195688697-tsdl3156s9sv6rt349a1luqhokgu5f58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

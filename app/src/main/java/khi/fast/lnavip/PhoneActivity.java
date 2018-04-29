@@ -171,7 +171,7 @@ public class PhoneActivity extends AppCompatActivity {
 
 
 
-                speak2("BRAILLE KEYBOARD NOW ON THE SCREEN! ENTER THE NUMBER NOW!:");
+                speak2("BRAILLE KEYBOARD NOW ON THE SCREEN! ENTER THE NUMBER NOW TO SHARE NEWS ON THE NUMBER!:");
 
             }
         }, 1500);

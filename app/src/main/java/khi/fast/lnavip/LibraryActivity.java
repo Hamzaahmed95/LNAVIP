@@ -111,8 +111,8 @@ public class LibraryActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak1("There are 4 things in the library! 1st one is making CV, 2nd one is Checking the saved news!" +
-                        "3rd one is Explore the news category wise! and 4th one is Settings! Swipe up for THE CV!" +
+                speak1("There are 4 things in the library! 1st one is Notebook, 2nd one is Checking the saved news!" +
+                        "3rd one is Explore the news category wise! and 4th one is Settings! Swipe up to open notebook!" +
                         "Swipe down for checking saved news! Swipe Left to explore the news! and swipe right to open settings! " +
                         "Now waiting for your action!");
 
@@ -814,23 +814,27 @@ public class LibraryActivity extends AppCompatActivity {
     }
     public void onSwipeTop() {
         Intent i = new Intent(LibraryActivity.this,CVMakerActivity.class);
+        speak1("NoteBook Opened!, single tap to create new note, double tap to check the notesfeed, long tap to check your save notes!");
         startActivity(i);
 
 
     }
     public void onSwipeRight() {
         Intent i = new Intent(LibraryActivity.this,SettingsActivity.class);
+        speak1("OPEN SETTINGS NOW!");
         startActivity(i);
 
 
     }
     public void onSwipeLeft() {
         Intent i = new Intent(LibraryActivity.this,ExploreNewsActivity.class);
+        speak1("EXPLORE THE NEWS!");
         startActivity(i);
 
     }
     public void onSwipeBottom() {
         Intent i = new Intent(LibraryActivity.this,SavedNewsActivity.class);
+        speak1("CHECK THE SAVE NEWS!");
         startActivity(i);
 
     }
