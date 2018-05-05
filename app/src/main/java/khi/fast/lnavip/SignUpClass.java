@@ -9,14 +9,24 @@ public class SignUpClass {
     private String Username;
     private String Password;
     private int Age;
+    private boolean Status;
 
     public SignUpClass() {
     }
 
-    public SignUpClass(String username, String password, int age) {
+    public SignUpClass(String username, String password, int age,Boolean status) {
         Username = username;
         Password = password;
         Age = age;
+        Status= status;
+    }
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean status) {
+        Status = status;
     }
 
     public String getUsername() {

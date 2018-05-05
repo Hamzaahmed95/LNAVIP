@@ -27,6 +27,7 @@ public class Confirmation2Activity extends AppCompatActivity {
     private RelativeLayout layout;
     private String activity;
     TextToSpeech t1;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -45,9 +46,11 @@ public class Confirmation2Activity extends AppCompatActivity {
                 }
             }
         });
+
         Handler handler = new Handler();
         if(extra!=null){
             activity=extra.getString("ID");
+
             System.out.println("in onCreate()"+activity);
 
         }
@@ -67,7 +70,15 @@ public class Confirmation2Activity extends AppCompatActivity {
                 else{
                     System.out.println("News");
                     t1.stop();
+                    Bundle extra = getIntent().getExtras();
+                    if (extra != null) {
+                        System.out.println("Nusrat "+extra.getString("Username"));
+                        username=extra.getString("Username");
+
+
+                    }
                     Intent i = new Intent(Confirmation2Activity.this,NewsWhizActivity.class);
+                    i.putExtra("Username",username);
                     startActivity(i);
                 }
 

@@ -32,8 +32,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -54,10 +62,17 @@ public class NewsWhiz extends Fragment {
     private String newsDetails="";
     private GestureDetector gd;
     public static String saveNews="";
+    int count=0;
+    String title;
     public static NewsWhiz newInstance(){
         return new NewsWhiz();
     }
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessageDatabaseReference;
+    private ChildEventListener mChildEventListener;
+    private String username;
+    private String day;
     @Override
     public void onCreate(Bundle savedInstanceState){
 
@@ -65,7 +80,24 @@ public class NewsWhiz extends Fragment {
 
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        Bundle extra = getActivity().getIntent().getExtras();
+        if (extra != null) {
+            System.out.println("Nusrat123 "+extra.getString("Username"));
+            username=extra.getString("Username");
 
+
+        }
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => "+c);
+        String date = String.valueOf(c);
+        day=date.substring(8,10);
+        int i = Integer.parseInt(day);
+        int difference=06-i;
+        System.out.println("difference = "+difference);
+
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("SaveNews");
         new FetchItemsTask().execute();
         t1=new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override
@@ -144,16 +176,35 @@ public class NewsWhiz extends Fragment {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
-                System.out.println("Double");
-                speak1("News Detail is: "+newsDetails);
+                if(count==0) {
+                    System.out.println("Double");
+                    speak1("News Detail is: " + newsDetails);
+                 }
+                else{
+                    SaveNews saveNews = new SaveNews(username,title,day);
+                    mMessageDatabaseReference.push().setValue(saveNews);
+                    attachDatabaseReadListener();
+                    speak1("News is saved!");
+                    count=0;
+
+                }
                 return true;
+
             }
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e){
-                t1.stop();
-                t2.stop();
-                speak1("Alright! News Title is: "+newsHeadlines+"! Double tap for the detail now!");
+                if(count==0) {
+                    t1.stop();
+                    t2.stop();
+                    speak1("Alright! News Title is: " + newsHeadlines + "! Double tap for the detail now!");
+                }
+                else{
 
+                    Intent i = new Intent(getActivity(),PhoneActivity.class);
+                    i.putExtra("NEWS",title);
+                    startActivity(i);
+                    count=0;
+                }
                 return true;
             }
         }
@@ -255,7 +306,7 @@ public class NewsWhiz extends Fragment {
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
                     startActivity(i);*/
-
+                    title=item.getTitle();
                     System.out.println("hamza->"+pos);
                     System.out.println("TITLE: "+item.getTitle());
                 }
@@ -275,10 +326,17 @@ public class NewsWhiz extends Fragment {
                 @Override
                 public boolean onLongClick(View view) {
 
-                   Intent i = new Intent(getActivity(),PhoneActivity.class);
+                    speak1("Single tab to share the news on Number, or Double tab to save the news.");
+                    count++;
+
+
+
+
+                  /* Intent i = new Intent(getActivity(),PhoneActivity.class);
                     i.putExtra("NEWS",item.getTitle());
                     startActivity(i);
-                    return false;
+                */    return false;
+
                 }
             });
 
@@ -355,6 +413,68 @@ public class NewsWhiz extends Fragment {
 
         }
     }
+    private void attachDatabaseReadListener(){
+        if(mChildEventListener==null) {
+            mChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    //  textHide.setVisibility(View.GONE);
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            mMessageDatabaseReference.addChildEventListener(mChildEventListener);
+            mMessageDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+
+                        //  Log.d("mom ",""+mom.getPICTURE());
+
+                    }
+
+
+
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+    private void detachDatabaseReadListener(){
+        if(mChildEventListener!=null)
+            mMessageDatabaseReference.removeEventListener(mChildEventListener);
+        mChildEventListener=null;
+    }
+
+
 
 }
 

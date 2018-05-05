@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -837,6 +838,7 @@ public class PhoneActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        System.out.println("Request Code: "+requestCode);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_SEND_SMS: {
                 if (grantResults.length > 0
@@ -867,8 +869,17 @@ public class PhoneActivity extends AppCompatActivity {
 
     private void sendSMS(String phoneNumber, String message)
     {
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, null, null);
+        try {
+
+            SmsManager smsManager = SmsManager.getDefault();
+            ArrayList<String> msgArray = smsManager.divideMessage(message);
+
+            smsManager.sendMultipartTextMessage(phoneNumber, null,msgArray, null, null);
+            Toast.makeText(getApplicationContext(), "Message Sent",Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), ex.getMessage().toString(), Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+        }
     }
     public String method(String str) {
         if (str != null && str.length() > 0 ) {
@@ -918,6 +929,7 @@ public class PhoneActivity extends AppCompatActivity {
             if(phonecount==1){
                 requestpermisson(name,msg);
 
+
             }
             else{
                 speak2("Are you sure? you want send news on "+name+"? if yes then swipe right again!");
@@ -931,6 +943,23 @@ public class PhoneActivity extends AppCompatActivity {
     public void onSwipeBottom() {
         Intent i =new Intent(PhoneActivity.this,LearningBrailleActivity.class);
         startActivity(i);
+    }
+    public void sendAppMsg(View view) {
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String text = " message you want to share..";
+        // change with required  application package
+
+        intent.setPackage("com.whatsapp");
+        if (intent != null) {
+            intent.putExtra(Intent.EXTRA_TEXT, text);//
+            startActivity(Intent.createChooser(intent, text));
+        } else {
+
+            Toast.makeText(this, "App not found", Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
 }

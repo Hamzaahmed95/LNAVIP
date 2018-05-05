@@ -46,7 +46,7 @@ public class NewsFragment extends Fragment {
     private LinearLayout NewsAssistant;
     public static String s2;
     private GestureDetector gestureDetector;
-
+    private String Name;
     public static NewsFragment newInstance(){
         return new NewsFragment();
     }
@@ -83,6 +83,15 @@ public class NewsFragment extends Fragment {
 
         Log.i(TAG,"in onCreateView() ");
         View view = inflater.inflate(R.layout.fragment_news,container,false);
+
+        Bundle extra = getActivity().getIntent().getExtras();
+        if (extra != null) {
+            System.out.println("Nusrat "+extra.getString("Username"));
+            Name=extra.getString("Username");
+
+
+        }
+
         Assistant=(LinearLayout)view.findViewById(R.id.Assistant);
         Assistant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +120,7 @@ public class NewsFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-               speak1("GoodMorning Hamza I hope you have a good day :)");
+               speak1("GoodMorning"+Name+" I hope you have a good day :)");
 
             }
         }, 1000);
@@ -168,6 +177,7 @@ public class NewsFragment extends Fragment {
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                     i.putExtra("ID","News");
+                    i.putExtra("Username",Name);
 
                             speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
 

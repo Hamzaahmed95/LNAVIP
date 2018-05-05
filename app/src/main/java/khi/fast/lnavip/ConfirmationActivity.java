@@ -1,6 +1,7 @@
 package khi.fast.lnavip;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -284,10 +285,14 @@ public class ConfirmationActivity extends AppCompatActivity {
                 Age1=extra.getString("Age");
                 password=extra.getString("Password");
             }
-            SignUpClass signUpClass = new SignUpClass(Username1,password,Integer.parseInt(Age1));
+            SignUpClass signUpClass = new SignUpClass(Username1,password,Integer.parseInt(Age1),true);
             mMessageDatabaseReference.push().setValue(signUpClass);
             System.out.println("check123 "+Username1+" "+ Age1+ " "+password);
             attachDatabaseReadListener();
+            SharedPreferences prefs = getSharedPreferences("confirmationActivity", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("Username", Username1);
+            editor.commit();
             Intent i = new Intent(ConfirmationActivity.this,NewsActivity.class);
             speak2("Hello Hamza!  Right now, Your screen has divided into 3!" +
                     " There's rectangle box at the top of the screen (It's ME)! then theres another rectangle box at the bottom of screen, " +
