@@ -13,14 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Created by Hamza Ahmed on 14-Dec-17.
+ * Created by Hamza Ahmed on 06-May-18.
  */
 
-public class ExploreNewsActivity extends AppCompatActivity {
+public class StatusBrailleActivity extends AppCompatActivity {
 
     LinearLayout layout1;
     LinearLayout layout2;
@@ -43,6 +46,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
     int count15=0;
     int count16=0;
     int mPtrCount=0;
+    int count=0;
     String name="";
     TextToSpeech t1;
     private GestureDetector gd;
@@ -189,9 +193,16 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
-                System.out.println("Double");
-                System.out.println("layout1: "+count1+" "+count2+" "+count3);
+                System.out.println("nusrat"+count);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
+                count++;
+
+                count++;
                 count1=0;
                 count2=0;
                 count3=0;
@@ -215,6 +226,12 @@ public class ExploreNewsActivity extends AppCompatActivity {
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
+                count++;
                 count1=0;
                 count2=0;
                 count3=0;
@@ -238,6 +255,12 @@ public class ExploreNewsActivity extends AppCompatActivity {
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
+                count++;
                 count1=0;
                 count2=0;
                 count3=0;
@@ -261,6 +284,12 @@ public class ExploreNewsActivity extends AppCompatActivity {
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
+                count++;
                 count1=0;
                 count2=0;
                 count3=0;
@@ -284,6 +313,13 @@ public class ExploreNewsActivity extends AppCompatActivity {
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
+
+                count++;
                 count1=0;
                 count2=0;
                 count3=0;
@@ -307,6 +343,11 @@ public class ExploreNewsActivity extends AppCompatActivity {
                 System.out.println("Double");
                 System.out.println("layout1: "+count1+" "+count2+" "+count3);
                 BrailleLanguage(count1, count2, count3, count4, count5, count6);
+                if(count>1){
+                    System.out.println("name1: "+name);
+                    ReadFile(name);
+                }
+
                 count1=0;
                 count2=0;
                 count3=0;
@@ -351,7 +392,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
 
-               // gd.onTouchEvent(motionEvent);
+                gd.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout1.setBackgroundDrawable( getResources().getDrawable(R.drawable.shape2) );
@@ -375,7 +416,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-             //   gd1.onTouchEvent(motionEvent);
+                gd1.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout2.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
@@ -398,7 +439,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-              //  gd2.onTouchEvent(motionEvent);
+                gd2.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout3.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
@@ -420,7 +461,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-               // gd3.onTouchEvent(motionEvent);
+                gd3.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout4.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
@@ -442,7 +483,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-             //   gd4.onTouchEvent(motionEvent);
+                gd4.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout5.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
@@ -463,7 +504,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
-               // gd5.onTouchEvent(motionEvent);
+                gd5.onTouchEvent(motionEvent);
                 gestureDetector.onTouchEvent(motionEvent);
                 if(motionEvent.getAction()==0)
                     layout6.setBackgroundDrawable( getResources().getDrawable(R.drawable.circle3) );
@@ -476,10 +517,10 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
 
     }
-    public void BrailleLanguage(int count1,int count2,int count3,int count4,int count5,int count6){
+    public void  BrailleLanguage(int count1,int count2,int count3,int count4,int count5,int count6){
         if(count1!=0 &count2==0&count3==0&count4==0&count5==0&count6==0){
             System.out.println("A");
-            speak1("A");
+            speak1("a");
             count1=0;
             count2=0;
             count3=0;
@@ -489,7 +530,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5==0&count6==0){
-            speak1("C");
+            speak1("c");
             count1=0;
             count2=0;
             count3=0;
@@ -499,7 +540,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("B");
+            speak1("b");
             count1=0;
             count2=0;
             count3=0;
@@ -509,7 +550,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5==0&count6==0){
-            speak1("D");
+            speak1("d");
             count1=0;
             count2=0;
             count3=0;
@@ -519,7 +560,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5==0&count6==0){
-            speak1("E");
+            speak1("e");
             count1=0;
             count2=0;
             count3=0;
@@ -529,7 +570,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("F");
+            speak1("f");
             count1=0;
             count2=0;
             count3=0;
@@ -539,7 +580,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("G");
+            speak1("g");
             count1=0;
             count2=0;
             count3=0;
@@ -549,7 +590,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("H");
+            speak1("h");
             count1=0;
             count2=0;
             count3=0;
@@ -559,7 +600,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4==0&count5==0&count6==0){
-            speak1("I");
+            speak1("i");
             count1=0;
             count2=0;
             count3=0;
@@ -569,7 +610,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6==0){
-            speak1("J");
+            speak1("j");
             count1=0;
             count2=0;
             count3=0;
@@ -579,7 +620,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("K");
+            speak1("k");
             count1=0;
             count2=0;
             count3=0;
@@ -589,7 +630,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("L");
+            speak1("l");
             count1=0;
             count2=0;
             count3=0;
@@ -599,7 +640,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6==0){
-            speak1("M");
+            speak1("m");
             count1=0;
             count2=0;
             count3=0;
@@ -609,7 +650,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6==0){
-            speak1("N");
+            speak1("n");
             count1=0;
             count2=0;
             count3=0;
@@ -619,7 +660,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6==0){
-            speak1("O");
+            speak1("o");
             count1=0;
             count2=0;
             count3=0;
@@ -629,7 +670,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("P");
+            speak1("p");
             count1=0;
             count2=0;
             count3=0;
@@ -639,7 +680,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("Q");
+            speak1("q");
             count1=0;
             count2=0;
             count3=0;
@@ -649,7 +690,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("R");
+            speak1("r");
             count1=0;
             count2=0;
             count3=0;
@@ -659,7 +700,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4==0&count5!=0&count6==0){
-            speak1("S");
+            speak1("s");
             count1=0;
             count2=0;
             count3=0;
@@ -669,7 +710,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5!=0&count6==0){
-            speak1("T");
+            speak1("t");
             count1=0;
             count2=0;
             count3=0;
@@ -679,7 +720,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4==0&count5!=0&count6!=0){
-            speak1("U");
+            speak1("u");
             count1=0;
             count2=0;
             count3=0;
@@ -689,7 +730,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3!=0&count4==0&count5!=0&count6!=0){
-            speak1("V");
+            speak1("v");
             count1=0;
             count2=0;
             count3=0;
@@ -699,7 +740,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1==0 &count2!=0&count3!=0&count4!=0&count5==0&count6!=0){
-            speak1("W");
+            speak1("w");
             count1=0;
             count2=0;
             count3=0;
@@ -709,7 +750,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4==0&count5!=0&count6!=0){
-            speak1("X");
+            speak1("x");
             count1=0;
             count2=0;
             count3=0;
@@ -719,7 +760,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2!=0&count3==0&count4!=0&count5!=0&count6!=0){
-            speak1("Y");
+            speak1("y");
             count1=0;
             count2=0;
             count3=0;
@@ -729,7 +770,7 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
         }
         else if(count1!=0 &count2==0&count3==0&count4!=0&count5!=0&count6!=0){
-            speak1("Z");
+            speak1("z");
             count1=0;
             count2=0;
             count3=0;
@@ -882,33 +923,50 @@ public class ExploreNewsActivity extends AppCompatActivity {
 
     }
     public void onSwipeTop() {
-        Intent i = new Intent(ExploreNewsActivity.this,SportsNewsActivity.class);
-        i.putExtra("ID","Technology");
-        startActivity(i);
-
-        System.out.println("Technology");
-
-        }
+        Toast.makeText(StatusBrailleActivity.this, "top", Toast.LENGTH_SHORT).show();
+        speak1("Clear");
+        count=0;
+        name="";
+        textView.setText(name);
+        count1=0;
+        count2=0;
+        count3=0;
+        count4=0;
+        count5=0;
+        count6=0;
+    }
     public void onSwipeRight() {
-        System.out.println("Sports");
-        Intent i = new Intent(ExploreNewsActivity.this,SportsNewsActivity.class);
-        i.putExtra("ID","Sports");
-        startActivity(i);
+
+        Toast.makeText(StatusBrailleActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+        name=name+" ";
+        textView.setText(name);
+        speak1("space");
+
     }
     public void onSwipeLeft() {
-        System.out.println("World");
-        Intent i = new Intent(ExploreNewsActivity.this,SportsNewsActivity.class);
-        i.putExtra("ID","World");
-        startActivity(i);
+        Toast.makeText(StatusBrailleActivity.this, "left", Toast.LENGTH_SHORT).show();
+        if(name.equals("")){
+            speak2("You haven't typed any thing yet");
+        }
+        else if(name.equals(" ")){
+            speak2("You just typed the space, Kindly type your name" );
 
+        }
+        else {
+            Intent i = new Intent(StatusBrailleActivity.this,ConfirmationActivity.class);
+            i.putExtra("ActivityName","StatusBrailleActivity");
+            System.out.println("name:-> "+name+"<-:name");
+            i.putExtra("Name",name);
+            startActivity(i);
 
+            System.out.println("here now? "+name);
+            speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
+        }
+        //name="";
     }
     public void onSwipeBottom() {
-        System.out.println("Entertainment");
-        Intent i = new Intent(ExploreNewsActivity.this,SportsNewsActivity.class);
-        i.putExtra("ID","Entertainment");
+        Intent i =new Intent(StatusBrailleActivity.this,MainGuidanceActivity.class);
         startActivity(i);
-
     }
     public String method(String str) {
         if (str != null && str.length() > 0 ) {
@@ -917,4 +975,42 @@ public class ExploreNewsActivity extends AppCompatActivity {
         textView.setText(str);
         return str;
     }
+
+    private void ReadFile(String word){
+        BufferedReader reader = null;
+
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open("hamza.txt")));
+
+            // do reading, usually loop until end of file reading
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                //process line
+                // String[] array = mLine.split("-");
+                //System.out.println(array[0]);
+                //System.out.println(array[1]);
+                System.out.println("what is word: "+word+ " "+mLine.contains(word));
+                if(mLine.contains(word)) {
+                    System.out.println("LINE: "+mLine);
+                    speak2(mLine);
+
+                    break;
+                }
+
+            }
+        } catch (IOException e) {
+            //log the exception
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    //log the exception
+                }
+            }
+        }
+    }
+
+
 }
