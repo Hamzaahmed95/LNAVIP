@@ -65,6 +65,14 @@ public class Confirmation2Activity extends AppCompatActivity {
                 else if(activity.equals("NewsAssistant")){
                     System.out.println("NewsAssistant");
                     Intent i = new Intent(Confirmation2Activity.this,LibraryActivity.class);
+                    Bundle extra = getIntent().getExtras();
+                    if (extra != null) {
+                        System.out.println("Nusrat "+extra.getString("Username"));
+                        username=extra.getString("Username");
+
+
+                    }
+                    i.putExtra("ID",username);
                     startActivity(i);
                 }
                 else{

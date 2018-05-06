@@ -51,6 +51,7 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
     private GestureDetector gd3;
     private GestureDetector gd4;
     private GestureDetector gd5;
+    String ID="null";
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,13 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         layout5=(LinearLayout)findViewById(R.id.layout5);
         layout6=(LinearLayout)findViewById(R.id.layout6);
         MainLayout=(LinearLayout)findViewById(R.id.MainLayout);
+
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            ID=extra.getString("ID");
+
+
+        }
 
         layout1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -912,9 +920,19 @@ public class OneHandedBrailleKeyboard  extends AppCompatActivity {
         }
         else {
             Intent i = new Intent(OneHandedBrailleKeyboard.this,ConfirmationActivity.class);
-            i.putExtra("ActivityName","OneHandedBrailleKeyboard");
             System.out.println("name:-> "+name+"<-:name");
             i.putExtra("Name",name);
+
+            if(ID.equals("null")){
+                i.putExtra("ActivityName","OneHandedBrailleKeyboard");
+
+            }
+            else{
+
+                System.out.println("check1234"+ID);
+                i.putExtra("ActivityName","PortalActivity");
+
+            }
             startActivity(i);
 
             System.out.println("here now? "+name);

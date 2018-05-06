@@ -109,6 +109,7 @@ public class NewsFragment extends Fragment {
                 speak1("Hey I am your library! Double tap to open me up! or single tab to back again!");
                 Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                 i.putExtra("ID","NewsAssistant");
+                i.putExtra("Username",Name);
                 startActivity(i);
             }
         });

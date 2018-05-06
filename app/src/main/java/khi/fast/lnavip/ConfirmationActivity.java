@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.net.PasswordAuthentication;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReference;
+    private DatabaseReference mMessageDatabaseReference2;
     private ChildEventListener mChildEventListener;
     LinearLayout layout1;
     LinearLayout layout2;
@@ -47,6 +49,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     String Username1;
     String Age1;
     String password;
+    String ID;
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +78,11 @@ public class ConfirmationActivity extends AppCompatActivity {
             name1=extra.getString("ActivityName");
             username=extra.getString("Name");
 
+
         }
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        mMessageDatabaseReference2 = mFirebaseDatabase.getReference().child("messages");
 
         class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
@@ -241,8 +248,12 @@ public class ConfirmationActivity extends AppCompatActivity {
     }
     public void onSwipeRight() {
         Intent i =new Intent(ConfirmationActivity.this,OneHandedBrailleKeyboard.class);
-        if(name1.equals("OneHandedBrailleKeyboard"))
-        speak2("Kindly Change the name.");
+        if(name1.equals("OneHandedBrailleKeyboard")){
+            speak2("Kindly Change the name.");
+            Bundle extra = getIntent().getExtras();
+
+
+        }
         else if(name1.equals("AgeClass"))
             speak2("Kindly Change the age");
         else
@@ -278,6 +289,19 @@ public class ConfirmationActivity extends AppCompatActivity {
             i.putExtra("Age",Age1);
             startActivity(i);
         }
+        else if(name1.equals("PortalActivity")){
+            System.out.println("Nusrat");
+            Bundle extra=this.getIntent().getExtras();
+            if(extra!=null) {
+                Username1 = extra.getString("Name");
+            }
+                FriendlyMessage friendlyMessage = new FriendlyMessage(Username1,"hamza",null,0);
+                mMessageDatabaseReference2.push().setValue(friendlyMessage);
+            Intent i = new Intent(ConfirmationActivity.this,PortalActivity.class);
+            startActivity(i);
+
+        }
+
         else{
             Bundle extra=this.getIntent().getExtras();
             if(extra!=null){
@@ -346,6 +370,30 @@ public class ConfirmationActivity extends AppCompatActivity {
             };
             mMessageDatabaseReference.addChildEventListener(mChildEventListener);
             mMessageDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+
+                        //  Log.d("mom ",""+mom.getPICTURE());
+
+                    }
+
+
+
+
+
+
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            mMessageDatabaseReference2.addChildEventListener(mChildEventListener);
+            mMessageDatabaseReference2.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 

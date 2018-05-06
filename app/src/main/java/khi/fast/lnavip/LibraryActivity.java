@@ -41,6 +41,7 @@ public class LibraryActivity extends AppCompatActivity {
     private GestureDetector gd5;
     private GestureDetector gestureDetector;
     private String name="";
+    private String username="";
 
     TextToSpeech t1;
     @Override
@@ -111,9 +112,8 @@ public class LibraryActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak1("There are 4 things in the library! 1st one is Notebook, 2nd one is Checking the saved news!" +
-                        "3rd one is Explore the news category wise! and 4th one is Settings! Swipe up to open notebook!" +
-                        "Swipe down for checking saved news! Swipe Left to explore the news! and swipe right to open settings! " +
+                speak1("There are 3 things in the library! Swipe up to open Forum!" +
+                        "Swipe down for checking saved news! Swipe Left to explore the news! " +
                         "Now waiting for your action!");
 
             }
@@ -270,7 +270,13 @@ public class LibraryActivity extends AppCompatActivity {
         gd5 = new GestureDetector(this, new MyGestureDetector6());
         gestureDetector = new GestureDetector(this, new GestureListener());
 
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            System.out.println("Nusrat "+extra.getString("Username"));
+            username=extra.getString("ID");
 
+
+        }
 
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -813,8 +819,8 @@ public class LibraryActivity extends AppCompatActivity {
         }
     }
     public void onSwipeTop() {
-        Intent i = new Intent(LibraryActivity.this,CVMakerActivity.class);
-        speak1("NoteBook Opened!, single tap to create new note, double tap to check the notesfeed, long tap to check your save notes!");
+        Intent i = new Intent(LibraryActivity.this,PortalActivity.class);
+        //speak1("NoteBook Opened!, single tap to create new note, double tap to check the notesfeed, long tap to check your save notes!");
         startActivity(i);
 
 
@@ -835,6 +841,8 @@ public class LibraryActivity extends AppCompatActivity {
     public void onSwipeBottom() {
         Intent i = new Intent(LibraryActivity.this,SavedNewsActivity.class);
         speak1("CHECK THE SAVE NEWS!");
+
+        i.putExtra("ID",username);
         startActivity(i);
 
     }

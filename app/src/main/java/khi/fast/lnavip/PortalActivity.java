@@ -94,15 +94,14 @@ public class PortalActivity extends AppCompatActivity {
 
     private MessageAdapter mMessageAdapter;
 
+    private GestureDetector gestureDetector;
+    TextToSpeech t1;
     private ImageView dp2;
     private String url2;
     private ProgressBar mProgressBar;
 
-    private ImageButton mPhotoPickerButton;
 
-    private EditText mMessageEditText;
 
-    private android.widget.Button mSendButton;
     private ImageView profile;
     public String NAME;
     public String status[];
@@ -127,10 +126,10 @@ public class PortalActivity extends AppCompatActivity {
     protected void onCreate( final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        setContentView(R.layout.main_activity);
         mTextView = (TextView) findViewById(R.id.messageTextView);
         status=new String[10];
         mainScreen=(LinearLayout)findViewById(R.id.mainScreen);
+
 
         t2=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -142,6 +141,58 @@ public class PortalActivity extends AppCompatActivity {
                 }
             }
         });
+        t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.US);
+                    t1.setPitch(.0205f);
+                }
+            }
+        });
+        class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+
+        gestureDetector = new GestureDetector(this, new GestureListener());
         class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
@@ -163,7 +214,12 @@ public class PortalActivity extends AppCompatActivity {
         }
         gd = new GestureDetector(this, new MyGestureDetector());
 
-
+        mainScreen.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return false;
+            }
+        });
         mUsername = ANONYMOUS;
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -177,9 +233,6 @@ public class PortalActivity extends AppCompatActivity {
         // Initialize references to views
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageListView = (ListView) findViewById(R.id.messageListView);
-        mPhotoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
-        mMessageEditText = (EditText) findViewById(R.id.messageEditText);
-        mSendButton = (Button) findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
         final List<FriendlyMessage> friendlyMessages = new ArrayList<>();
@@ -190,21 +243,11 @@ public class PortalActivity extends AppCompatActivity {
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
         // ImagePickerButton shows an image picker to upload a image for a message
-        mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Fire an intent to show an image picker
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
-
-            }
-        });
         mMessageListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 gd.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
                 System.out.println("hello there?");
                 return false;
             }
@@ -212,43 +255,7 @@ public class PortalActivity extends AppCompatActivity {
 
 
         // Enable Send button when there's text to send
-        mMessageEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() > 0) {
-                    mSendButton.setEnabled(true);
-                } else {
-                    mSendButton.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-
-        });
-
-
-        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
-
-        // Send button sends a message and clears the EditText
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Send messages on click
-                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, null, R.color.darkgray);
-                // Clear input box
-                mMessageDatabaseReference.push().setValue(friendlyMessage);
-                mMessageEditText.setText("");
-                attachDatabaseReadListener();
-
-
-            }
-        });
         Query mHouseDatabaseReference2 =mFirebaseDatabase.getReference().child("messages");
 
         mHouseDatabaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -335,7 +342,32 @@ public class PortalActivity extends AppCompatActivity {
             mMessageDatabaseReference.removeEventListener(mChildEventListener);
         mChildEventListener=null;
     }
+    private void speak1(String word){
+            System.out.println("NAME: "+ name);
+            HashMap<String, String> myHashAlarm = new HashMap<String, String>();
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_ALARM));
+            myHashAlarm.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "Hello");
+            t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 
+    }
+    public void onSwipeTop() {
+        Intent i = new Intent(PortalActivity.this,OneHandedBrailleKeyboard.class);
+        speak1("Write your Story!!");
+        i.putExtra("ID","PortalActivity");
+        startActivity(i);
+
+
+    }
+    public void onSwipeRight() {
+
+
+    }
+    public void onSwipeLeft() {
+
+    }
+    public void onSwipeBottom() {
+
+    }
 
 
 }
