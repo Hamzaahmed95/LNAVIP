@@ -99,6 +99,7 @@ public class NewsFragment extends Fragment {
                 speak1("Hey It's me! Double tap to open me up! or single tab to back again!");
                 Intent i = new Intent(getActivity(),Confirmation2Activity.class);
                 i.putExtra("ID","Assistant");
+                i.putExtra("Username",Name);
                 startActivity(i);
             }
         });

@@ -34,7 +34,7 @@ public class SplashScreen extends Activity {
 
     ProgressBar mprogressBar;
     private FirebaseDatabase mFirebaseDatabase;
-
+    String Username;
     private SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,14 @@ public class SplashScreen extends Activity {
         img.setAnimation(anim1);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         sharedPref = getSharedPreferences("confirmationActivity",MODE_PRIVATE);
-        final String Username = sharedPref.getString("Username",
+        Username = sharedPref.getString("Username",
                 "notfound");
         System.out.println("Username: "+Username);
+        Bundle extra1 = getIntent().getExtras();
+        if (extra1 != null) {
+            System.out.println("Nusrat "+extra1.getString("Username"));
 
+        }
 
 
         mprogressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -60,6 +64,7 @@ public class SplashScreen extends Activity {
         Handler handler = new Handler();
 
 
+        System.out.println("Hamza ahmed: "+Username);
 
         if(Username.equals("notfound"))
         {
@@ -97,7 +102,13 @@ public class SplashScreen extends Activity {
                                         startActivity(i);
                                         finish();
                                     }
+                                    else{
+
+                                        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                                        finish();
+                                    }
                                 }
+
                             }
 
                         }
