@@ -174,7 +174,7 @@ public class SettingsActivity  extends AppCompatActivity {
             public void run() {
 
 
-                speak2("Single tap to create Contacts");
+                speak2("Single tap to view contacts, or double tap to create contacts");
 
 
             }
@@ -227,6 +227,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+                speak2("view contacts opened!");
               //  System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                // //BrailleLanguage(count1, count2, count3, count4, count5, count6);
 
@@ -250,6 +254,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+                speak2("view contacts opened!");
                 System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                // //BrailleLanguage(count1, count2, count3, count4, count5, count6);
                 count1 = 0;
@@ -278,6 +286,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+                speak2("view contacts opened!");
                 System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                 //BrailleLanguage(count1, count2, count3, count4, count5, count6);
                 count1 = 0;
@@ -304,6 +316,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+                speak2("view contacts opened!");
                 System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                 //BrailleLanguage(count1, count2, count3, count4, count5, count6);
                 count1 = 0;
@@ -330,6 +346,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+                speak2("view contacts opened!");
                 System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                 //BrailleLanguage(count1, count2, count3, count4, count5, count6);
                 count1 = 0;
@@ -355,6 +375,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
+                speak2("view contacts opened!");
+                Intent i = new Intent(SettingsActivity.this,ShowContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 System.out.println("layout1: " + count1 + " " + count2 + " " + count3);
                 //BrailleLanguage(count1, count2, count3, count4, count5, count6);
                 count1 = 0;
