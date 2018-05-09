@@ -22,6 +22,7 @@ public class MainGuidanceActivity extends AppCompatActivity {
 
     RelativeLayout layout;
 
+    private GestureDetector gestureDetector;
     private GestureDetector gd;
     TextToSpeech t1;
     @Override
@@ -38,33 +39,78 @@ public class MainGuidanceActivity extends AppCompatActivity {
                 }
             }
         });
+        class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                              //  onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                          //  onSwipeBottom();
+                        } else {
+                           // onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+
+
         class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
                 System.out.println("Double");
-                Intent i =new Intent(MainGuidanceActivity.this,LearningBrailleActivity.class);
+                Intent i =new Intent(MainGuidanceActivity.this,BrailleDictionary.class);
                 startActivity(i);
-                    return true;
+                t1.stop();
+                return true;
             }
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e){
-                Intent i =new Intent(MainGuidanceActivity.this,GuidelinesActivity.class);
+                Intent i =new Intent(MainGuidanceActivity.this,BraillePatternGuidance.class);
                 startActivity(i);
-
+                t1.stop();
                 System.out.println("Single");
                 return true;
             }
         }
+        gestureDetector = new GestureDetector(this, new GestureListener());
+
 
         gd = new GestureDetector(this, new MyGestureDetector());
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak2("Okay! Single tap to open Guidelines of using Braille keyboard!" +
-                        "Double tap to open a small 3 level challenge of using Braille keyboard!" +
-                        "or long tap on the screen to open Braille Dictionary! Now waiting for your response. ");
+                speak2("Okay! Single tap to check the braille patterns! " +
+                        "or Double tap to open Braille Dictionary!  or swipe right to back again. Now waiting for your response.");
 
             }
         }, 1000);
@@ -79,14 +125,13 @@ public class MainGuidanceActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 gd.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
                 return false;
             }
         });
         layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Intent i =new Intent(MainGuidanceActivity.this,BrailleDictionary.class);
-                startActivity(i);
 
                 return false;
             }
@@ -102,6 +147,19 @@ public class MainGuidanceActivity extends AppCompatActivity {
         t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 
     }
+    @Override
+    public void onBackPressed() {
+        t1.stop();
+        Intent i = new Intent(MainGuidanceActivity.this,OneHandedBrailleKeyboard.class);
+        startActivity(i);
+        finish();
+    }
 
-
+    public void onSwipeRight(){
+        System.out.println();
+        t1.stop();
+        Intent i = new Intent(MainGuidanceActivity.this,OneHandedBrailleKeyboard.class);
+        startActivity(i);
+        finish();
+    }
 }

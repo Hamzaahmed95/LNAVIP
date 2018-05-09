@@ -36,6 +36,7 @@ public class BrailleDictionary  extends AppCompatActivity {
     LinearLayout layout6;
     LinearLayout MainLayout;
     TextView textView;
+
     RelativeLayout dictionary;
     int count1=0;
     int count2=0;
@@ -52,6 +53,7 @@ public class BrailleDictionary  extends AppCompatActivity {
     String name="";
     TextToSpeech t1;
     private GestureDetector gd;
+    int allow=0;
     private GestureDetector gestureDetector;
 
     @Override
@@ -74,14 +76,23 @@ public class BrailleDictionary  extends AppCompatActivity {
         dictionary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startSpeechToText();
+
+            }
+        });
+        dictionary.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+
+
+                return false;
             }
         });
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                speak2("Braille Dictionary Opens! Tap anywhere on screen and find out pattern by saying the word");
+                speak2("Braille Dictionary Opens! Tap anywhere on screen and find out pattern by saying the letter");
 
             }
         }, 1000);
@@ -105,25 +116,31 @@ public class BrailleDictionary  extends AppCompatActivity {
                         if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                             if (diffX > 0) {
                                 onSwipeRight();
+                                allow=1;
                             } else {
-                                onSwipeLeft();
+                               // onSwipeLeft();
                             }
                             result = true;
                         }
                     } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffY > 0) {
-                            onSwipeBottom();
+                           // onSwipeBottom();
                         } else {
-                            onSwipeTop();
+                          //  onSwipeTop();
                         }
                         result = true;
                     }
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
+                if(allow==0){
+                    startSpeechToText();
+                }
+
                 return result;
             }
         }
+        gestureDetector = new GestureDetector(this, new GestureListener());
 
 
         class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
@@ -503,50 +520,13 @@ public class BrailleDictionary  extends AppCompatActivity {
         t1.speak(word, TextToSpeech.QUEUE_FLUSH, myHashAlarm);
 
     }
-    public void onSwipeTop() {
-        Toast.makeText(BrailleDictionary.this, "top", Toast.LENGTH_SHORT).show();
-        speak1("Clear");
-        name="";
-        textView.setText(name);
-        count1=0;
-        count2=0;
-        count3=0;
-        count4=0;
-        count5=0;
-        count6=0;
-    }
     public void onSwipeRight() {
 
-        Toast.makeText(BrailleDictionary.this, "bottom", Toast.LENGTH_SHORT).show();
-        name=name+" ";
-        textView.setText(name);
-        speak1("space");
-
-    }
-    public void onSwipeLeft() {
-        Toast.makeText(BrailleDictionary.this, "left", Toast.LENGTH_SHORT).show();
-        if(name.equals("")){
-            speak2("You haven't typed any thing yet");
-        }
-        else if(name.equals(" ")){
-            speak2("You just typed the space, Kindly type your name" );
-
-        }
-        else {
-            Intent i = new Intent(BrailleDictionary.this,ConfirmationActivity.class);
-            i.putExtra("ActivityName","BrailleDictionary");
-            System.out.println("name:-> "+name+"<-:name");
-            i.putExtra("Name",name);
-            startActivity(i);
-
-            System.out.println("here now? "+name);
-            speak1("You typed " + name + ". To continue, swipe left or to change the name, swipe right.");
-        }
-        //name="";
-    }
-    public void onSwipeBottom() {
-        Intent i =new Intent(BrailleDictionary.this,LearningBrailleActivity.class);
+        System.out.println();
+        t1.stop();
+        Intent i = new Intent(BrailleDictionary.this,OneHandedBrailleKeyboard.class);
         startActivity(i);
+
     }
     public String method(String str) {
         if (str != null && str.length() > 0 ) {

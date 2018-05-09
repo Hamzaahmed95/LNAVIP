@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/lightBlack"
+        android:id="@+id/Assistant"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/Assistant"
+        android:orientation="vertical"
+        android:id="@+id/fragment_news_recycle_view"
+        android:layout_above="@+id/NewsAssistant"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lightBlack"
+        android:id="@+id/NewsAssistant"/>
+
+</RelativeLayout>

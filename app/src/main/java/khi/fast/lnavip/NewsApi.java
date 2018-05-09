@@ -66,7 +66,7 @@ public class NewsApi {
         List<NewsItem> items = new ArrayList<>();
         Log.i(TAG,"in fetchItems() ");
         try {
-                String url = Uri.parse("https://newsapi.org/v1/articles?source=google-news&sortBy=top&apiKey=03b903f9d9bb433eb25cb8369dcc138b")
+                String url = Uri.parse("https://newsapi.org/v2/everything?sources=ary-news&apiKey=03b903f9d9bb433eb25cb8369dcc138b")
                     .buildUpon()
                     .appendQueryParameter("method", "flickr.photos.getRecent")
                     .appendQueryParameter("api_key", API_KEY)

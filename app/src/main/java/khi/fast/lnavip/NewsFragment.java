@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +47,10 @@ public class NewsFragment extends Fragment {
     private LinearLayout NewsAssistant;
     public static String s2;
     private GestureDetector gestureDetector;
+    private GestureDetector gd;
+    private GestureDetector gd2;
+    private GestureDetector gd3;
+    private RelativeLayout Relative;
     private String Name;
     public static NewsFragment newInstance(){
         return new NewsFragment();
@@ -77,7 +82,6 @@ public class NewsFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle s){
 
@@ -91,27 +95,155 @@ public class NewsFragment extends Fragment {
 
 
         }
+        Relative = (RelativeLayout)view.findViewById(R.id.Relative);
+
+
+        class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                // onSwipeRight();
+                            } else {
+                                //   onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            //onSwipeTop();
+                        }
+                        result = true;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+        gestureDetector = new GestureDetector(getContext(), new GestureListener());
+        Relative.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+
+                return false;
+            }
+        });
+        class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            }
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e){
+                speak1("Hey It's me Settings! Double tap to open me up! or single tab to back again!");
+                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
+                i.putExtra("ID","Assistant");
+                i.putExtra("Username",Name);
+                startActivity(i);
+                return true;
+            }
+        }
+        class MyGestureDetector2 extends GestureDetector.SimpleOnGestureListener {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            }
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e){
+                speak1("Hey I am your library! Double tap to open me up! or single tab to back again!");
+                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
+                i.putExtra("ID","NewsAssistant");
+                i.putExtra("Username",Name);
+                startActivity(i);
+
+                return true;
+            }
+        }
+        class MyGestureDetector3 extends GestureDetector.SimpleOnGestureListener {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
+
+                return true;
+
+            }
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e){
+                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
+                i.putExtra("ID","News");
+                i.putExtra("Username",Name);
+
+                speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
+
+
+
+                startActivity(i);
+                return true;
+            }
+        }
+        gestureDetector = new GestureDetector(getContext(), new GestureListener());
+
+        gd = new GestureDetector(getContext(), new MyGestureDetector());
+        gd2 = new GestureDetector(getContext(), new MyGestureDetector2());
+        gd3 = new GestureDetector(getContext(), new MyGestureDetector3());
+
 
         Assistant=(LinearLayout)view.findViewById(R.id.Assistant);
         Assistant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speak1("Hey It's me! Double tap to open me up! or single tab to back again!");
-                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
-                i.putExtra("ID","Assistant");
-                i.putExtra("Username",Name);
-                startActivity(i);
+
+            }
+        });
+        Assistant.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                gd.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+
+                return false;
             }
         });
         NewsAssistant=(LinearLayout)view.findViewById(R.id.NewsAssistant);
         NewsAssistant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speak1("Hey I am your library! Double tap to open me up! or single tab to back again!");
-                Intent i = new Intent(getActivity(),Confirmation2Activity.class);
-                i.putExtra("ID","NewsAssistant");
-                i.putExtra("Username",Name);
-                startActivity(i);
+
+            }
+        });
+        NewsAssistant.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                gd2.onTouchEvent(motionEvent);
+                gestureDetector.onTouchEvent(motionEvent);
+                return false;
             }
         });
         mNewsRecyclerView=(RecyclerView) view.findViewById(R.id.fragment_news_recycle_view);
@@ -177,15 +309,16 @@ public class NewsFragment extends Fragment {
             fragment_weather_recycle_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(getActivity(),Confirmation2Activity.class);
-                    i.putExtra("ID","News");
-                    i.putExtra("Username",Name);
 
-                            speak1("Hey You tapped on the news! Double tap to check the news! or Single tab to back again");
+                }
+            });
+            fragment_weather_recycle_view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    gd3.onTouchEvent(motionEvent);
+                    gestureDetector.onTouchEvent(motionEvent);
 
-
-
-                    startActivity(i);
+                    return false;
                 }
             });
             Author.setText(item.getAuthor());
@@ -247,6 +380,9 @@ public class NewsFragment extends Fragment {
 
         }
     }
-
+    public void onSwipeBottom(){
+        Intent i = new Intent(getActivity(),NewsFragmentGuidance.class);
+        startActivity(i);
+    }
 }
 
