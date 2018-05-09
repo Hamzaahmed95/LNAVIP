@@ -168,11 +168,11 @@ public class SavedNewsActivity extends AppCompatActivity {
         gd = new GestureDetector(this, new MyGestureDetector());
 
 
-        mUsername = ANONYMOUS;
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
+            mUsername = ANONYMOUS;
+            mFirebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseStorage = FirebaseStorage.getInstance();
 
-        mMessageDatabaseReference = mFirebaseDatabase.getReference().child("SaveNews");
+            mMessageDatabaseReference = mFirebaseDatabase.getReference().child("Contacts");
         Log.d("oncreate ", mMessageDatabaseReference.getDatabase().toString());
 
 

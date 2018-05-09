@@ -71,6 +71,7 @@ public class Confirmation2Activity extends AppCompatActivity {
 
 
                     }
+                    speak1("Settings opened!");
                     startActivity(i);
                 }
                 else if(activity.equals("NewsAssistant")){

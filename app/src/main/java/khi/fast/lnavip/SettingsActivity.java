@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -81,6 +82,7 @@ public class SettingsActivity  extends AppCompatActivity {
         if (extra1 != null) {
             System.out.println("Nusrat "+extra1.getString("Username"));
             Username1=extra1.getString("Username");
+            System.out.println("hello there? "+ Username1);
 
         }
         Bundle extra = getIntent().getExtras();
@@ -166,7 +168,17 @@ public class SettingsActivity  extends AppCompatActivity {
             }
         });
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
+
+                speak2("Single tap to create Contacts");
+
+
+            }
+        }, 1500);
 
 
         class GestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -225,6 +237,10 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onSingleTapConfirmed(MotionEvent e) {
 
                 System.out.println("Single");
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 //count1 = 1;
                 return true;
             }
@@ -249,7 +265,11 @@ public class SettingsActivity  extends AppCompatActivity {
             public boolean onSingleTapConfirmed(MotionEvent e) {
 
                 System.out.println("Single");
-                count2 = 1;
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
+
                 return true;
             }
         }
@@ -272,8 +292,10 @@ public class SettingsActivity  extends AppCompatActivity {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
 
-                System.out.println("Single");
-                count3 = 1;
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 return true;
             }
         }
@@ -296,8 +318,10 @@ public class SettingsActivity  extends AppCompatActivity {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
 
-                System.out.println("Single");
-                count4 = 1;
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 return true;
             }
         }
@@ -319,9 +343,10 @@ public class SettingsActivity  extends AppCompatActivity {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-
-                System.out.println("Single");
-                count5 = 1;
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 return true;
             }
         }
@@ -343,9 +368,10 @@ public class SettingsActivity  extends AppCompatActivity {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-
-                System.out.println("Single");
-                count6 = 1;
+                speak2("Contacts open! Enter name : ");
+                Intent i = new Intent(SettingsActivity.this,ContactsActivity.class);
+                i.putExtra("Username",Username1);
+                startActivity(i);
                 return true;
             }
         }

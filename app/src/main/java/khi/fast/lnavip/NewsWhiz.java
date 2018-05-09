@@ -82,7 +82,7 @@ public class NewsWhiz extends Fragment {
         setRetainInstance(true);
         Bundle extra = getActivity().getIntent().getExtras();
         if (extra != null) {
-            System.out.println("Nusrat123 "+extra.getString("Username"));
+            System.out.println("PLZ SAVE FYP : "+extra.getString("Username"));
             username=extra.getString("Username");
 
 
